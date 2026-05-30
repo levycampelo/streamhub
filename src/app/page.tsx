@@ -712,7 +712,9 @@ export default async function HomePage() {
               </div>
               <p className="service-price">{service.price}</p>
               <p className="service-description">{service.label}</p>
-              <p className="service-cta">Ver planos e contratar</p>
+              <div style={{ marginTop: "auto" }}>
+                <p className="service-cta">Ver planos e contratar</p>
+              </div>
             </a>
           ))}
         </div>

@@ -307,9 +307,14 @@ body {
   }
 }
 
+
 .service-showcase-card {
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 320px;
   border: 1px solid #26406a;
   border-radius: 18px;
   padding: 14px;
@@ -320,6 +325,12 @@ body {
     radial-gradient(120% 130% at 95% -20%, color-mix(in srgb, var(--service-accent, #58d2ff) 24%, transparent), transparent 60%),
     linear-gradient(175deg, rgba(12, 24, 45, 0.9) 0%, rgba(7, 13, 24, 0.96) 80%);
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+@media (max-width: 600px) {
+  .service-showcase-card {
+    min-height: 260px;
+  }
 }
 
 .service-showcase-card:hover {
