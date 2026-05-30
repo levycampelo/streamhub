@@ -708,7 +708,6 @@ export default async function HomePage() {
               </div>
               <div className="service-meta-row">
                 <span className="service-meta-label">A partir de</span>
-                <span className="service-tier-chip">{service.tier}</span>
               </div>
               <p className="service-price">{service.price}</p>
               <p className="service-description">{service.label}</p>

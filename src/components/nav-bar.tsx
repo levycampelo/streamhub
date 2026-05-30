@@ -29,8 +29,9 @@ export function NavBar() {
       <nav className="card flex flex-wrap items-center justify-between gap-4 p-4 backdrop-blur-sm">
         <Link href="/" className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3c8dff]">
           <p className="text-xs uppercase tracking-[0.28em] text-[#7f9bc4]">Share StreamHub</p>
-          <h1 className="text-2xl leading-none" style={{ fontFamily: "var(--font-heading)" }}>
+          <h1 className="text-2xl leading-none flex items-center gap-2" style={{ fontFamily: "var(--font-heading)" }}>
             Seu hub de streaming
+            <span className="text-base font-bold text-[#7f9bc4] tracking-wide" style={{letterSpacing: '0.08em'}}>BETA</span>
           </h1>
         </Link>
         <div className="flex flex-wrap items-center gap-2 text-sm">
