@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Manrope } from "next/font/google";
 import { AuthSessionProvider } from "@/components/auth-session-provider";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -81,13 +82,15 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${headingFont.variable} ${uiFont.variable}`}>
-        <AuthSessionProvider>
-          {children}
-          <footer className="mx-auto mt-8 w-full max-w-6xl border-t border-[var(--line)] px-4 py-6 text-center text-xs text-[var(--muted)]">
-            &copy; {currentYear} StreamHub - Todos os conteudos externos continuam a ser propriedade do seu legitimo proprietario.
-          </footer>
-        </AuthSessionProvider>
-        <Analytics />
+        <ErrorBoundary>
+          <AuthSessionProvider>
+            {children}
+            <footer className="mx-auto mt-8 w-full max-w-6xl border-t border-[var(--line)] px-4 py-6 text-center text-xs text-[var(--muted)]">
+              &copy; {currentYear} StreamHub - Todos os conteudos externos continuam a ser propriedade do seu legitimo proprietario.
+            </footer>
+          </AuthSessionProvider>
+          <Analytics />
+        </ErrorBoundary>
       </body>
     </html>
   );
