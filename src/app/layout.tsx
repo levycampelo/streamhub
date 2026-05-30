@@ -1,6 +1,8 @@
+
 import type { Metadata } from "next";
 import { Bebas_Neue, Manrope } from "next/font/google";
 import { AuthSessionProvider } from "@/components/auth-session-provider";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXTAUTH_URL ?? "http://localhost:3000";
@@ -85,6 +87,7 @@ export default function RootLayout({
             &copy; {currentYear} StreamHub - Todos os conteudos externos continuam a ser propriedade do seu legitimo proprietario.
           </footer>
         </AuthSessionProvider>
+        <Analytics />
       </body>
     </html>
   );
