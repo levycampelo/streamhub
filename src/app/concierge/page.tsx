@@ -50,9 +50,13 @@ export default function ConciergePage() {
         return;
       }
 
+      let replyText = data.reply;
+      if (typeof replyText !== "string") {
+        replyText = typeof replyText === "object" && replyText !== null ? JSON.stringify(replyText) : String(replyText);
+      }
       setMessages([
         ...updatedMessages,
-        { role: "assistant", content: data.reply },
+        { role: "assistant", content: replyText },
       ]);
     } catch {
       setMessages([
