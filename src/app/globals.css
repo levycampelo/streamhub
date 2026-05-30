@@ -153,7 +153,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 260px;
+    min-height: 210px;
   border: 1px solid #2a3d63;
   border-radius: 16px;
   overflow: hidden;
@@ -186,7 +186,7 @@ body {
 
 .feature-title {
   margin: 10px 0 0;
-  max-width: 24ch;
+    margin: 8px 0 0;
   font-size: 1.58rem;
   line-height: 1.15;
   font-family: var(--font-heading), sans-serif;
@@ -329,7 +329,7 @@ body {
 
 @media (max-width: 600px) {
   .service-showcase-card {
-    min-height: 260px;
+     min-height: 140px;
   }
 }
 

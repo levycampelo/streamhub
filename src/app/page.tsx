@@ -547,31 +547,33 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto mt-6 max-w-6xl px-4 section-enter stagger-1">
-        <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
-          <h3 className="text-2xl font-semibold">Seu fluxo no StreamHub</h3>
-          <span className="rounded-full border border-[var(--line)] bg-[#0c1628] px-3 py-1 text-xs text-[var(--muted)]">
-            Carrossel de experiencia
-          </span>
-        </div>
+      {authenticatedUserId && (
+        <section className="mx-auto mt-6 max-w-6xl px-4 section-enter stagger-1">
+          <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
+            <h3 className="text-2xl font-semibold">Seu fluxo no StreamHub</h3>
+            <span className="rounded-full border border-[var(--line)] bg-[#0c1628] px-3 py-1 text-xs text-[var(--muted)]">
+              Carrossel de experiencia
+            </span>
+          </div>
 
-        <div className="feature-carousel">
-          {experienceSlides.map((slide, index) => (
-            <article key={slide.title} className="feature-card">
-              <div className="feature-card-glow" style={{ backgroundColor: slide.accent }} aria-hidden="true" />
-              <p className="feature-kicker">{slide.kicker}</p>
-              <h4 className="feature-title">{slide.title}</h4>
-              <p className="feature-text">{slide.text}</p>
-              <div className="feature-footer">
-                <span className="feature-index">0{index + 1}</span>
-                <Link className="feature-link" href={slide.cta}>
-                  {slide.ctaLabel}
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+          <div className="feature-carousel">
+            {experienceSlides.map((slide, index) => (
+              <article key={slide.title} className="feature-card">
+                <div className="feature-card-glow" style={{ backgroundColor: slide.accent }} aria-hidden="true" />
+                <p className="feature-kicker">{slide.kicker}</p>
+                <h4 className="feature-title">{slide.title}</h4>
+                <p className="feature-text">{slide.text}</p>
+                <div className="feature-footer">
+                  <span className="feature-index">0{index + 1}</span>
+                  <Link className="feature-link" href={slide.cta}>
+                    {slide.ctaLabel}
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mx-auto mt-6 max-w-6xl px-4 section-enter stagger-2">
         {isPersonalizedCatalog ? (
@@ -711,9 +713,7 @@ export default async function HomePage() {
               </div>
               <p className="service-price">{service.price}</p>
               <p className="service-description">{service.label}</p>
-              <div style={{ marginTop: "auto" }}>
-                <p className="service-cta">Ver planos e contratar</p>
-              </div>
+              <p className="service-cta">Ver planos e contratar</p>
             </a>
           ))}
         </div>
