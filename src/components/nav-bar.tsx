@@ -92,7 +92,7 @@ function readLocaleFromCookie(): AppLocale {
 
   const cookie = document.cookie
     .split("; ")
-    .find((entry) => entry.startsWith(${LOCALE_COOKIE_NAME}=));
+    .find((entry) => entry.startsWith(LOCALE_COOKIE_NAME + "="));
 
   return normalizeLocale(cookie?.split("=")[1]);
 }
@@ -119,7 +119,7 @@ export function NavBar() {
 
   function setLanguage(nextLocale: AppLocale) {
     setLocale(nextLocale);
-    document.cookie = ${LOCALE_COOKIE_NAME}=; path=/; max-age=31536000; samesite=lax;
+    document.cookie = LOCALE_COOKIE_NAME + "=" + nextLocale + "; path=/; max-age=31536000; samesite=lax";
   }
 
   const menuLinks = isAuthenticated
