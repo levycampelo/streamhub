@@ -163,7 +163,7 @@ export function NavBar() {
                 key={option.code}
                 type="button"
                 onClick={() => setLanguage(option.code)}
-                className={inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold transition }
+                className={"inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold transition " + (locale === option.code ? "bg-[#00c28a] text-[#041018]" : "text-[#aac2e3] hover:bg-[#142746] hover:text-[#edf4ff]")}
               >
                 <span>{option.flag}</span>
                 <span>{option.label}</span>
