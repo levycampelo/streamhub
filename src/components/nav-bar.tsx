@@ -173,7 +173,7 @@ export function NavBar() {
 
           <Link
             href="/"
-            className={`rounded-xl border px-3 py-2 font-semibold transition`}
+            className={"rounded-xl border px-3 py-2 font-semibold transition " + (pathname === "/" ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]" : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")}
           >
             {t.home}
           </Link>
@@ -186,7 +186,7 @@ export function NavBar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-xl border px-3 py-3 text-center text-sm font-semibold transition }
+                  className={"rounded-xl border px-3 py-3 text-center text-sm font-semibold transition " + (pathname === link.href ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]" : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")}
                 >
                   {t[link.key]}
                 </Link>
@@ -206,11 +206,12 @@ export function NavBar() {
               ) : (
                 <Link
                   href="/login"
-                  className={`block rounded-xl border px-3 py-3 text-center text-sm font-semibold transition ${
-                    pathname === "/login"
+                  className={
+                    "block rounded-xl border px-3 py-3 text-center text-sm font-semibold transition " +
+                    (pathname === "/login"
                       ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
-                      : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
-                  }`}
+                      : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
+                  }
                 >
                   {t.login}
                 </Link>
