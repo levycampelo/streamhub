@@ -162,6 +162,10 @@ body {
   scroll-snap-type: x mandatory;
 }
 
+.poster-carousel--auto {
+  scroll-snap-type: none;
+}
+
 .poster-carousel::-webkit-scrollbar {
   height: 8px;
 }

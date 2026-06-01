@@ -5,15 +5,13 @@ import { ReactNode, useEffect, useRef } from "react";
 type AutoPosterCarouselProps = {
   children: ReactNode;
   className?: string;
-  stepPx?: number;
-  intervalMs?: number;
+  speedPxPerSecond?: number;
 };
 
 export function AutoPosterCarousel({
   children,
-  className = "poster-carousel",
-  stepPx = 1,
-  intervalMs = 28,
+  className = "poster-carousel poster-carousel--auto",
+  speedPxPerSecond = 36,
 }: AutoPosterCarouselProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const pausedRef = useRef(false);
@@ -22,22 +20,29 @@ export function AutoPosterCarousel({
     const container = containerRef.current;
     if (!container) return;
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
+    let animationFrameId = 0;
+    let lastTimestamp = 0;
 
-    const intervalId = window.setInterval(() => {
-      if (pausedRef.current) return;
-
-      const maxScrollLeft = container.scrollWidth - container.clientWidth;
-      if (maxScrollLeft <= 0) return;
-
-      if (container.scrollLeft >= maxScrollLeft - 1) {
-        container.scrollLeft = 0;
-        return;
+    const tick = (timestamp: number) => {
+      if (!lastTimestamp) {
+        lastTimestamp = timestamp;
       }
 
-      container.scrollLeft += stepPx;
-    }, intervalMs);
+      const deltaSeconds = (timestamp - lastTimestamp) / 1000;
+      lastTimestamp = timestamp;
+
+      if (!pausedRef.current) {
+        const maxScrollLeft = container.scrollWidth - container.clientWidth;
+        if (maxScrollLeft > 0) {
+          const next = container.scrollLeft + speedPxPerSecond * deltaSeconds;
+          container.scrollLeft = next >= maxScrollLeft ? 0 : next;
+        }
+      }
+
+      animationFrameId = window.requestAnimationFrame(tick);
+    };
+
+    animationFrameId = window.requestAnimationFrame(tick);
 
     const handlePointerEnter = () => {
       pausedRef.current = true;
@@ -51,11 +56,11 @@ export function AutoPosterCarousel({
     container.addEventListener("pointerleave", handlePointerLeave);
 
     return () => {
-      window.clearInterval(intervalId);
+      window.cancelAnimationFrame(animationFrameId);
       container.removeEventListener("pointerenter", handlePointerEnter);
       container.removeEventListener("pointerleave", handlePointerLeave);
     };
-  }, [intervalMs, stepPx]);
+  }, [speedPxPerSecond]);
 
   return (
     <div ref={containerRef} className={className}>
