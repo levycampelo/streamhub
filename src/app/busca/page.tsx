@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { NavBar } from "@/components/nav-bar";
 import { addToWatchlist, buildWatchlistKey, getWatchlist } from "@/lib/watchlist-storage";
 import { FormEvent, useEffect, useState } from "react";
@@ -69,6 +70,9 @@ function buildWatchLabel(provider: string | null): string {
 }
 
 export default function BuscaPage() {
+  const { status } = useSession();
+  const isAuthenticated = status === "authenticated";
+
   const [query, setQuery] = useState("John Wick");
   const [results, setResults] = useState<SearchItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -118,6 +122,11 @@ export default function BuscaPage() {
   }
 
   function handleAddToWatchlist(item: SearchItem) {
+    if (!isAuthenticated) {
+      setWatchlistFeedback("Faca login para adicionar titulos na sua lista.");
+      return;
+    }
+
     const response = addToWatchlist({
       id: item.id,
       mediaType: item.mediaType,
@@ -132,7 +141,7 @@ export default function BuscaPage() {
 
     setWatchlistKeys(getWatchlist().map((watchItem) => watchItem.key));
     setWatchlistFeedback(
-      response.added ? `${item.title} adicionado na watchlist.` : `${item.title} ja estava na watchlist.`
+      response.added ? `${item.title} adicionado na lista.` : `${item.title} ja estava na lista.`
     );
   }
 
@@ -157,14 +166,13 @@ export default function BuscaPage() {
               {loading ? "Buscando..." : "Buscar"}
             </button>
           </form>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <Link className="btn-ghost" href="/watchlist">
-              Ir para watchlist
-            </Link>
-            <Link className="btn-ghost" href="/deep-links">
-              Abrir deep links lab
-            </Link>
-          </div>
+          {isAuthenticated ? (
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Link className="btn-ghost" href="/watchlist">
+                Adicionar na lista
+              </Link>
+            </div>
+          ) : null}
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-[var(--muted)]">
@@ -246,11 +254,13 @@ export default function BuscaPage() {
                         type="button"
                         className="btn-ghost"
                         onClick={() => handleAddToWatchlist(item)}
-                        disabled={watchlistKeys.includes(buildWatchlistKey(item.mediaType, item.id))}
+                        disabled={!isAuthenticated || watchlistKeys.includes(buildWatchlistKey(item.mediaType, item.id))}
                       >
-                        {watchlistKeys.includes(buildWatchlistKey(item.mediaType, item.id))
-                          ? "Ja na watchlist"
-                          : "Adicionar na watchlist"}
+                        {!isAuthenticated
+                          ? "Entrar para adicionar"
+                          : watchlistKeys.includes(buildWatchlistKey(item.mediaType, item.id))
+                            ? "Ja na lista"
+                            : "Adicionar na lista"}
                       </button>
                     </div>
                     <p className="mt-1 text-xs text-[var(--muted)]">
