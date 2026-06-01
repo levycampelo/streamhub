@@ -143,14 +143,14 @@ export function NavBar() {
             </button>
 
             {menuOpen ? (
-              <div className="absolute right-0 top-full z-50 mt-2 w-max min-w-[7.5rem] rounded-xl border border-[var(--line)] bg-[#0b1424]/95 p-2 shadow-2xl backdrop-blur-md">
-                <div className="space-y-1">
+              <div className="absolute right-0 top-full z-50 mt-1.5 w-max min-w-[6.5rem] rounded-lg border border-[var(--line)] bg-[#0b1424]/95 p-1.5 shadow-2xl backdrop-blur-md">
+                <div className="space-y-0.5">
                   {menuLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className={
-                        "mx-auto inline-flex items-center justify-center rounded-md border px-2.5 py-1 text-sm font-semibold transition " +
+                        "mx-auto inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-semibold transition " +
                         (pathname === link.href
                           ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
                           : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
@@ -161,7 +161,7 @@ export function NavBar() {
                   ))}
                 </div>
 
-                <div className="mt-2 border-t border-[var(--line)] pt-2">
+                <div className="mt-1.5 border-t border-[var(--line)] pt-1.5">
                   {isAuthenticated ? (
                     <div className="space-y-2">
                       <span className="block truncate rounded-lg border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs text-[var(--muted)]">
@@ -175,7 +175,7 @@ export function NavBar() {
                     <Link
                       href="/login"
                       className={
-                        "mx-auto inline-flex items-center justify-center rounded-md border px-2.5 py-1 text-sm font-semibold transition " +
+                        "mx-auto inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-semibold transition " +
                         (pathname === "/login"
                           ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
                           : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
