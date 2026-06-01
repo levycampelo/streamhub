@@ -135,7 +135,19 @@ export function NavBar() {
             </div>
           </Link>
 
-          <div className="relative">
+          <div className="relative flex items-center gap-2">
+            <Link
+              href="/assinatura"
+              className={
+                "rounded-xl border px-3 py-2 text-xs font-semibold text-white transition " +
+                (pathname === "/assinatura"
+                  ? "border-[#ff6b61] bg-[#d93d35]"
+                  : "border-[#ff6b61] bg-[#e04a42] hover:bg-[#ef5a52]")
+              }
+            >
+              Assinatura
+            </Link>
+
             <button
               type="button"
               onClick={() => setMenuOpen((prev) => !prev)}
