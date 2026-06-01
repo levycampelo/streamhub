@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { NavBar } from "@/components/nav-bar";
 import { DeepLinkAnchor } from "@/components/deep-link-anchor";
+import { AutoPosterCarousel } from "@/components/auto-poster-carousel";
 import { getAuthenticatedUserId } from "@/lib/auth-user";
 import { listSubscriptions, parseSubscriptionsCookie, setSubscriptions, SUBSCRIPTIONS_COOKIE_NAME } from "@/lib/user-data";
 import { normalizeProviderName as normalizeDeepLinkProvider, type DeepLinkProvider } from "@/lib/deep-links";
@@ -157,7 +158,7 @@ async function fetchTmdbCollection(path: string, params: Record<string, string>)
   return data.results;
 }
 
-function toTrendingCards(items: TmdbTrendingItem[], mediaType: "movie" | "tv", limit = 12): TrendingCard[] {
+function toTrendingCards(items: TmdbTrendingItem[], mediaType: "movie" | "tv", limit = 15): TrendingCard[] {
   return items
     .filter((item) => item.poster_path)
     .slice(0, limit)
@@ -180,7 +181,7 @@ function toTrendingCards(items: TmdbTrendingItem[], mediaType: "movie" | "tv", l
     });
 }
 
-function interleaveCards(first: TrendingCard[], second: TrendingCard[], maxItems = 12): TrendingCard[] {
+function interleaveCards(first: TrendingCard[], second: TrendingCard[], maxItems = 15): TrendingCard[] {
   const merged: TrendingCard[] = [];
   const maxLength = Math.max(first.length, second.length);
 
@@ -236,8 +237,9 @@ async function fetchPopularWorldwide(): Promise<TrendingCard[]> {
   ]);
 
   return interleaveCards(
-    toTrendingCards(movies, "movie", 6),
-    toTrendingCards(series, "tv", 6)
+    toTrendingCards(movies, "movie", 8),
+    toTrendingCards(series, "tv", 8),
+    15
   );
 }
 
@@ -472,7 +474,7 @@ export default async function HomePage() {
         fetchProviderCatalog("movie", activeProviderIds),
         fetchProviderCatalog("tv", activeProviderIds),
       ]);
-      popularWorldwide = interleaveCards(catalogMovies, catalogSeries, 12);
+      popularWorldwide = interleaveCards(catalogMovies, catalogSeries, 15);
     } else {
       popularWorldwide = await fetchPopularWorldwide();
     }
@@ -616,7 +618,7 @@ export default async function HomePage() {
             Nao foi possivel carregar os filmes em alta desta semana. Detalhe: {trendingError}
           </article>
         ) : (
-          <div className="poster-carousel">
+          <AutoPosterCarousel>
             {trendingMovies.map((item) => (
               <article key={`movie-${item.id}`} className="poster-card">
                 <DeepLinkAnchor
@@ -633,7 +635,7 @@ export default async function HomePage() {
                 </DeepLinkAnchor>
               </article>
             ))}
-          </div>
+          </AutoPosterCarousel>
         )}
       </section>
 
@@ -648,7 +650,7 @@ export default async function HomePage() {
         </div>
 
         {!trendingError ? (
-          <div className="poster-carousel">
+          <AutoPosterCarousel>
             {trendingSeries.map((item) => (
               <article key={`tv-${item.id}`} className="poster-card">
                 <DeepLinkAnchor
@@ -665,7 +667,7 @@ export default async function HomePage() {
                 </DeepLinkAnchor>
               </article>
             ))}
-          </div>
+          </AutoPosterCarousel>
         ) : null}
       </section>
 
@@ -680,7 +682,7 @@ export default async function HomePage() {
         </div>
 
         {!popularError ? (
-          <div className="poster-carousel">
+          <AutoPosterCarousel>
             {popularWorldwide.map((item) => (
               <article key={`world-${item.id}`} className="poster-card">
                 <DeepLinkAnchor
@@ -697,7 +699,7 @@ export default async function HomePage() {
                 </DeepLinkAnchor>
               </article>
             ))}
-          </div>
+          </AutoPosterCarousel>
         ) : null}
       </section>
 
