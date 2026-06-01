@@ -123,12 +123,11 @@ export function NavBar() {
         <div className="flex items-center justify-between gap-3">
           <Link href="/" className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3c8dff]">
             <p className="text-[10px] uppercase tracking-[0.22em] text-[#7f9bc4] md:text-xs md:tracking-[0.28em]">Share StreamHub</p>
-            <h1 className="text-[1.25rem] leading-none flex items-center gap-2 md:text-2xl" style={{ fontFamily: "var(--font-heading)" }}>
-              Seu hub de streaming
-              <span className="text-[0.72rem] font-bold text-[#7f9bc4] tracking-wide md:text-base" style={{ letterSpacing: "0.08em" }}>
-                BETA
-              </span>
-            </h1>
+            <img
+              src="/logos/teste_logo.PNG"
+              alt="SharingHub"
+              className="mt-1 h-8 w-auto md:h-9"
+            />
           </Link>
 
           <div className="relative">
