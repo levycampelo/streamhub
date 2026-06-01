@@ -35,7 +35,7 @@ body {
 
 .hero-panel {
   position: relative;
-  min-height: 420px;
+  min-height: 360px;
   border: 1px solid #1f345a;
   border-radius: 22px;
   overflow: hidden;
@@ -83,21 +83,21 @@ body {
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 42%;
-  padding: 28px 32px;
+  max-width: 40%;
+  padding: 24px 28px;
 }
 
 .hero-kicker {
   margin: 0;
-  font-size: 13px;
-  letter-spacing: 0.26em;
+  font-size: 12px;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: #93b3e8;
 }
 
 .hero-title {
-  margin: 14px 0 0;
-  font-size: clamp(2.6rem, 6.8vw, 5.6rem);
+  margin: 10px 0 0;
+  font-size: clamp(2.4rem, 6.1vw, 5rem);
   line-height: 0.9;
   letter-spacing: 0.015em;
   color: #eaf2ff;
@@ -105,10 +105,10 @@ body {
 }
 
 .hero-description {
-  margin: 24px 0 0;
+  margin: 18px 0 0;
   max-width: 30ch;
-  font-size: 1.03rem;
-  line-height: 1.5;
+  font-size: 0.98rem;
+  line-height: 1.45;
   color: #c4d4ee;
 }
 
@@ -546,7 +546,7 @@ body {
 
 @media (max-width: 768px) {
   .hero-panel {
-    min-height: 300px;
+    min-height: 270px;
   }
 
   .hero-poster-grid {
@@ -563,7 +563,7 @@ body {
 
   .hero-content {
     max-width: 100%;
-    padding: 18px;
+    padding: 16px;
   }
 
   .hero-kicker {
