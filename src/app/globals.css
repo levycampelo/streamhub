@@ -33,6 +33,85 @@ body {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
 }
 
+.hero-panel {
+  position: relative;
+  min-height: 500px;
+  border: 1px solid #1f345a;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(112deg, rgba(4, 10, 24, 0.98) 4%, rgba(7, 16, 35, 0.92) 42%, rgba(8, 18, 37, 0.78) 100%),
+    radial-gradient(1000px 520px at -20% 10%, rgba(36, 101, 211, 0.22), transparent 64%);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.36);
+}
+
+.hero-backdrop {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-poster-grid {
+  position: absolute;
+  right: -120px;
+  top: -28px;
+  bottom: -28px;
+  width: min(74%, 980px);
+  display: grid;
+  grid-template-columns: repeat(6, minmax(120px, 1fr));
+  gap: 10px;
+  transform: perspective(1200px) rotateY(-10deg) rotateX(1.8deg);
+  opacity: 0.78;
+}
+
+.hero-poster-tile {
+  width: 100%;
+  height: 155px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(84, 118, 176, 0.34);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
+}
+
+.hero-darken {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(4, 10, 24, 0.98) 0%, rgba(5, 12, 29, 0.94) 40%, rgba(5, 12, 29, 0.65) 64%, rgba(5, 12, 29, 0.32) 100%),
+    radial-gradient(60% 120% at 12% 50%, rgba(0, 8, 27, 0.62), rgba(0, 0, 0, 0));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 48%;
+  padding: 36px 40px;
+}
+
+.hero-kicker {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #93b3e8;
+}
+
+.hero-title {
+  margin: 14px 0 0;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: 0.015em;
+  color: #eaf2ff;
+  text-shadow: 0 14px 34px rgba(2, 10, 30, 0.6);
+}
+
+.hero-description {
+  margin: 24px 0 0;
+  max-width: 30ch;
+  font-size: 1.03rem;
+  line-height: 1.5;
+  color: #c4d4ee;
+}
+
 .btn {
   background: linear-gradient(120deg, var(--accent-2), #ff7a59);
   color: #fff;
@@ -466,6 +545,38 @@ body {
 }
 
 @media (max-width: 768px) {
+  .hero-panel {
+    min-height: 350px;
+  }
+
+  .hero-poster-grid {
+    right: -220px;
+    width: 145%;
+    grid-template-columns: repeat(5, minmax(100px, 1fr));
+    opacity: 0.52;
+    transform: perspective(1000px) rotateY(-7deg);
+  }
+
+  .hero-poster-tile {
+    height: 122px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    padding: 22px;
+  }
+
+  .hero-kicker {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+
+  .hero-description {
+    margin-top: 14px;
+    max-width: 34ch;
+    font-size: 0.96rem;
+  }
+
   .poster-carousel {
     grid-auto-columns: minmax(155px, 1fr);
   }

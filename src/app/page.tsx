@@ -488,6 +488,10 @@ export default async function HomePage() {
     ]);
   }
 
+  const heroPosters = [...trendingMovies, ...trendingSeries, ...popularWorldwide]
+    .filter((item) => item.poster)
+    .slice(0, 18);
+
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -531,19 +535,33 @@ export default async function HomePage() {
       <NavBar />
 
       <section className="section-enter mx-auto max-w-6xl px-4">
-        <div className="card overflow-hidden p-6 md:p-8">
-          <p className="text-xs uppercase tracking-[0.24em] text-[#8aa8d2]">Painel de entretenimento</p>
-          <h2
-            className="mt-2 text-5xl leading-[0.95] md:text-7xl"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            MENOS CAOS.
-            <br />
-            MAIS STREAM.
-          </h2>
-          <p className="mt-4 max-w-xl text-sm text-[var(--muted)] md:text-base">
-            Descubra onde assistir, controle gastos e receba sugestoes de economia no mesmo lugar.
-          </p>
+        <div className="hero-panel">
+          <div className="hero-backdrop" aria-hidden="true">
+            <div className="hero-poster-grid">
+              {heroPosters.map((item, index) => (
+                <img
+                  key={`hero-${item.mediaType}-${item.id}-${index}`}
+                  src={item.poster}
+                  alt=""
+                  className="hero-poster-tile"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+            <div className="hero-darken" />
+          </div>
+
+          <div className="hero-content">
+            <p className="hero-kicker">Painel de entretenimento</p>
+            <h2 className="hero-title" style={{ fontFamily: "var(--font-heading)" }}>
+              MENOS CAOS.
+              <br />
+              MAIS STREAM.
+            </h2>
+            <p className="hero-description">
+              Descubra onde assistir, controle gastos e receba sugestoes de economia no mesmo lugar.
+            </p>
+          </div>
         </div>
       </section>
 
