@@ -18,10 +18,9 @@ const plans: Plan[] = [
     checkoutUrl: standardCheckout,
     features: [
       "Alertas de entrada e saida de catalogo",
-      "Economia automatica",
+      "Analise das suas assinaturas",
       "Watchlist ilimitada",
       "Historico de precos",
-      "Calendario de rotacao de streaming",
     ],
   },
   {
@@ -31,10 +30,9 @@ const plans: Plan[] = [
     highlight: true,
     features: [
       "Alertas de entrada e saida de catalogo",
-      "Economia automatica",
+      "Analise das suas assinaturas",
       "Watchlist ilimitada",
       "Historico de precos",
-      "Calendario de rotacao de streaming",
       "IA Concierge",
     ],
   },
@@ -59,7 +57,7 @@ export default function AssinaturaPage() {
             <article
               key={plan.name}
               className={
-                "card section-enter p-5 " +
+                "card section-enter flex h-full flex-col p-5 " +
                 (plan.highlight ? "border-[#2c5d95] shadow-[0_14px_34px_rgba(0,0,0,0.34)]" : "")
               }
             >
@@ -79,7 +77,7 @@ export default function AssinaturaPage() {
                 {plan.price}
               </p>
 
-              <ul className="mt-4 space-y-2 text-sm text-[var(--muted)]">
+              <ul className="mt-4 flex-1 space-y-2 text-sm text-[var(--muted)]">
                 {plan.features.map((feature) => (
                   <li key={feature} className="rounded-lg border border-[var(--line)] bg-[#0a1325] px-3 py-2">
                     {feature}
