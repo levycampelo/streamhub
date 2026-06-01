@@ -24,12 +24,6 @@ const protectedLinks: ReadonlyArray<NavLink> = [
   { href: "/concierge", key: "concierge" },
 ];
 
-const localeOptions: Array<{ code: AppLocale; label: string; flag: string }> = [
-  { code: "pt", label: "PT", flag: "BR" },
-  { code: "en", label: "EN", flag: "US" },
-  { code: "es", label: "ES", flag: "ES" },
-];
-
 const navLabels: Record<
   AppLocale,
   {
@@ -117,11 +111,6 @@ export function NavBar() {
     await signOut({ callbackUrl: "/" });
   }
 
-  function setLanguage(nextLocale: AppLocale) {
-    setLocale(nextLocale);
-    document.cookie = LOCALE_COOKIE_NAME + "=" + nextLocale + "; path=/; max-age=31536000; samesite=lax";
-  }
-
   const menuLinks = isAuthenticated
     ? [...links.filter((link) => link.key !== "home"), ...protectedLinks]
     : links.filter((link) => link.key !== "home");
@@ -129,8 +118,8 @@ export function NavBar() {
   const t = navLabels[locale];
 
   return (
-    <header className="mx-auto mb-6 max-w-6xl px-4 pt-4 section-enter md:mb-8 md:pt-6">
-      <nav className="card p-3 backdrop-blur-sm md:p-4">
+    <header className="mx-auto mb-4 max-w-6xl px-4 pt-3 section-enter md:mb-5 md:pt-4">
+      <nav className="card px-3 py-2.5 backdrop-blur-sm md:px-4 md:py-3">
         <div className="flex items-center justify-between gap-3">
           <Link href="/" className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3c8dff]">
             <p className="text-[10px] uppercase tracking-[0.22em] text-[#7f9bc4] md:text-xs md:tracking-[0.28em]">Share StreamHub</p>
@@ -151,37 +140,6 @@ export function NavBar() {
           >
             {menuOpen ? t.close : t.menu}
           </button>
-        </div>
-
-        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-          <div
-            className="inline-flex items-center gap-1 rounded-full border border-[#2a436a] bg-[#0c1628] p-1"
-            aria-label={t.languageAria}
-          >
-            {localeOptions.map((option) => (
-              <button
-                key={option.code}
-                type="button"
-                onClick={() => setLanguage(option.code)}
-                className={
-                  "inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold transition " +
-                  (locale === option.code
-                    ? "bg-[#00c28a] text-[#041018]"
-                    : "text-[#aac2e3] hover:bg-[#142746] hover:text-[#edf4ff]")
-                }
-              >
-                <span>{option.flag}</span>
-                <span>{option.label}</span>
-              </button>
-            ))}
-          </div>
-
-          <Link
-            href="/"
-            className={"rounded-xl border px-3 py-2 font-semibold transition " + (pathname === "/" ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]" : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")}
-          >
-            {t.home}
-          </Link>
         </div>
 
         {menuOpen ? (
