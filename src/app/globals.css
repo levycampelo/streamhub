@@ -414,9 +414,8 @@ body {
 }
 
 .section-enter {
-  opacity: 0;
-  transform: translateY(16px);
-  animation: sectionIn 520ms ease-out forwards;
+  opacity: 1;
+  transform: none;
 }
 
 .stagger-1 {
@@ -444,6 +443,14 @@ body {
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .section-enter {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: sectionIn 520ms ease-out forwards;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section-enter,
   .stagger-1,
@@ -451,6 +458,7 @@ body {
   .stagger-3,
   .btn,
   .skeleton::after {
+    opacity: 1;
     animation: none;
     transition: none;
     transform: none;
