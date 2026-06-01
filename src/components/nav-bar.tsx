@@ -206,7 +206,11 @@ export function NavBar() {
               ) : (
                 <Link
                   href="/login"
-                  className={lock rounded-xl border px-3 py-3 text-center text-sm font-semibold transition }
+                  className={`block rounded-xl border px-3 py-3 text-center text-sm font-semibold transition ${
+                    pathname === "/login"
+                      ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
+                      : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
+                  }`}
                 >
                   {t.login}
                 </Link>
