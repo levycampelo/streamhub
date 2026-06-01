@@ -144,13 +144,13 @@ export function NavBar() {
 
             {menuOpen ? (
               <div className="absolute right-0 top-full z-50 mt-1.5 w-max min-w-[6.5rem] rounded-lg border border-[var(--line)] bg-[#0b1424]/95 p-1.5 shadow-2xl backdrop-blur-md">
-                <div className="space-y-0.5">
+                <div className="flex flex-col items-center gap-1">
                   {menuLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className={
-                        "mx-auto inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-semibold transition " +
+                        "flex w-fit items-center justify-center rounded-md border px-3 py-2 text-xs font-semibold transition " +
                         (pathname === link.href
                           ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
                           : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
@@ -175,7 +175,7 @@ export function NavBar() {
                     <Link
                       href="/login"
                       className={
-                        "mx-auto inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-semibold transition " +
+                        "mx-auto flex w-fit items-center justify-center rounded-md border px-3 py-2 text-xs font-semibold transition " +
                         (pathname === "/login"
                           ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
                           : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
