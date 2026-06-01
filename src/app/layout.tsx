@@ -1,9 +1,11 @@
 
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { Bebas_Neue, Manrope } from "next/font/google";
 import { AuthSessionProvider } from "@/components/auth-session-provider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/next";
+import { LOCALE_COOKIE_NAME, normalizeLocale, toHtmlLang } from "@/lib/locale";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXTAUTH_URL ?? "http://localhost:3000";
@@ -72,15 +74,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const locale = normalizeLocale(cookieStore.get(LOCALE_COOKIE_NAME)?.value);
   const currentYear = new Date().getFullYear();
 
   return (
-    <html lang="pt-BR">
+    <html lang={toHtmlLang(locale)}>
       <body className={`${headingFont.variable} ${uiFont.variable}`}>
         <ErrorBoundary>
           <AuthSessionProvider>

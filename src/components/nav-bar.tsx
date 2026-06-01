@@ -4,33 +4,120 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AppLocale, LOCALE_COOKIE_NAME, normalizeLocale } from "@/lib/locale";
+
+type NavLinkKey = "home" | "search" | "watchlist" | "deepLinks" | "concierge";
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/busca", label: "Busca" },
-];
+  { href: "/", key: "home" },
+  { href: "/busca", key: "search" },
+] as const satisfies ReadonlyArray<{ href: string; key: NavLinkKey }>;
 
 const protectedLinks = [
-  { href: "/watchlist", label: "Watchlist" },
-  { href: "/deep-links", label: "Deep Links" },
-  { href: "/concierge", label: "IA Concierge" },
+  { href: "/watchlist", key: "watchlist" },
+  { href: "/deep-links", key: "deepLinks" },
+  { href: "/concierge", key: "concierge" },
+] as const satisfies ReadonlyArray<{ href: string; key: NavLinkKey }>;
+
+const localeOptions: Array<{ code: AppLocale; label: string; flag: string }> = [
+  { code: "pt", label: "PT", flag: "🇧🇷" },
+  { code: "en", label: "EN", flag: "🇺🇸" },
+  { code: "es", label: "ES", flag: "🇪🇸" },
 ];
+
+const navLabels: Record<
+  AppLocale,
+  {
+    home: string;
+    search: string;
+    watchlist: string;
+    deepLinks: string;
+    concierge: string;
+    menu: string;
+    close: string;
+    login: string;
+    logout: string;
+    connected: string;
+    languageAria: string;
+  }
+> = {
+  pt: {
+    home: "Home",
+    search: "Busca",
+    watchlist: "Watchlist",
+    deepLinks: "Deep Links",
+    concierge: "IA Concierge",
+    menu: "Menu",
+    close: "Fechar",
+    login: "Entrar",
+    logout: "Sair",
+    connected: "Conectado",
+    languageAria: "Trocar idioma",
+  },
+  en: {
+    home: "Home",
+    search: "Search",
+    watchlist: "Watchlist",
+    deepLinks: "Deep Links",
+    concierge: "AI Concierge",
+    menu: "Menu",
+    close: "Close",
+    login: "Sign in",
+    logout: "Sign out",
+    connected: "Connected",
+    languageAria: "Switch language",
+  },
+  es: {
+    home: "Inicio",
+    search: "Buscar",
+    watchlist: "Watchlist",
+    deepLinks: "Deep Links",
+    concierge: "IA Concierge",
+    menu: "Menu",
+    close: "Cerrar",
+    login: "Entrar",
+    logout: "Salir",
+    connected: "Conectado",
+    languageAria: "Cambiar idioma",
+  },
+};
+
+function readLocaleFromCookie(): AppLocale {
+  if (typeof document === "undefined") return "pt";
+
+  const cookie = document.cookie
+    .split("; ")
+    .find((entry) => entry.startsWith(`${LOCALE_COOKIE_NAME}=`));
+
+  return normalizeLocale(cookie?.split("=")[1]);
+}
 
 export function NavBar() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
   const isAuthenticated = status === "authenticated";
   const [menuOpen, setMenuOpen] = useState(false);
+  const [locale, setLocale] = useState<AppLocale>("pt");
 
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    setLocale(readLocaleFromCookie());
+  }, []);
+
   async function handleLogout() {
     await signOut({ callbackUrl: "/" });
   }
 
+  function setLanguage(nextLocale: AppLocale) {
+    setLocale(nextLocale);
+    document.cookie = `${LOCALE_COOKIE_NAME}=${nextLocale}; path=/; max-age=31536000; samesite=lax`;
+  }
+
   const allLinks = isAuthenticated ? [...links, ...protectedLinks] : links;
+  const t = navLabels[locale];
 
   return (
     <header className="mx-auto mb-6 max-w-6xl px-4 pt-4 section-enter md:mb-8 md:pt-6">
@@ -49,15 +136,36 @@ export function NavBar() {
           <button
             type="button"
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="rounded-xl border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs font-semibold text-[#c9dbf5] transition hover:border-[#2a436a] hover:text-[#e8f1ff] md:hidden"
+            className="rounded-xl border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs font-semibold text-[#c9dbf5] transition hover:border-[#2a436a] hover:text-[#e8f1ff]"
             aria-expanded={menuOpen}
             aria-label="Abrir menu de navegacao"
           >
-            {menuOpen ? "Fechar" : "Menu"}
+            {menuOpen ? t.close : t.menu}
           </button>
         </div>
 
-        <div className="mt-3 hidden items-center gap-2 text-sm md:flex md:flex-wrap">
+        <div className={`mt-3 items-center gap-2 text-sm ${menuOpen ? "hidden md:flex md:flex-wrap" : "hidden"}`}>
+          <div
+            className="inline-flex items-center gap-1 rounded-full border border-[#2a436a] bg-[#0c1628] p-1"
+            aria-label={t.languageAria}
+          >
+            {localeOptions.map((option) => (
+              <button
+                key={option.code}
+                type="button"
+                onClick={() => setLanguage(option.code)}
+                className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold transition ${
+                  locale === option.code
+                    ? "bg-[#00c28a] text-[#041018]"
+                    : "text-[#aac2e3] hover:bg-[#142746] hover:text-[#edf4ff]"
+                }`}
+              >
+                <span>{option.flag}</span>
+                <span>{option.label}</span>
+              </button>
+            ))}
+          </div>
+
           {links.map((link) => (
             <Link
               key={link.href}
@@ -68,7 +176,7 @@ export function NavBar() {
                   : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
               }`}
             >
-              {link.label}
+              {t[link.key]}
             </Link>
           ))}
 
@@ -83,7 +191,7 @@ export function NavBar() {
                       : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
                   }`}
                 >
-                  {link.label}
+                  {t[link.key]}
                 </Link>
               ))
             : null}
@@ -92,10 +200,10 @@ export function NavBar() {
             {isAuthenticated ? (
               <>
                 <span className="rounded-xl border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs text-[var(--muted)]">
-                  {session?.user?.name ?? session?.user?.email ?? "Conectado"}
+                  {session?.user?.name ?? session?.user?.email ?? t.connected}
                 </span>
                 <button className="btn-ghost px-3 py-2 text-sm" onClick={handleLogout}>
-                  Sair
+                  {t.logout}
                 </button>
               </>
             ) : (
@@ -107,7 +215,7 @@ export function NavBar() {
                     : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
                 }`}
               >
-                Entrar
+                {t.login}
               </Link>
             )}
           </div>
@@ -115,6 +223,27 @@ export function NavBar() {
 
         {menuOpen ? (
           <div className="mt-3 space-y-3 rounded-xl border border-[var(--line)] bg-[#0b1424] p-3 md:hidden">
+            <div
+              className="inline-flex items-center gap-1 rounded-full border border-[#2a436a] bg-[#0c1628] p-1"
+              aria-label={t.languageAria}
+            >
+              {localeOptions.map((option) => (
+                <button
+                  key={option.code}
+                  type="button"
+                  onClick={() => setLanguage(option.code)}
+                  className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold transition ${
+                    locale === option.code
+                      ? "bg-[#00c28a] text-[#041018]"
+                      : "text-[#aac2e3] hover:bg-[#142746] hover:text-[#edf4ff]"
+                  }`}
+                >
+                  <span>{option.flag}</span>
+                  <span>{option.label}</span>
+                </button>
+              ))}
+            </div>
+
             <div className="grid grid-cols-2 gap-2">
               {allLinks.map((link) => (
                 <Link
@@ -126,7 +255,7 @@ export function NavBar() {
                       : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
                   }`}
                 >
-                  {link.label}
+                  {t[link.key]}
                 </Link>
               ))}
             </div>
@@ -135,10 +264,10 @@ export function NavBar() {
               {isAuthenticated ? (
                 <div className="flex items-center justify-between gap-2">
                   <span className="truncate rounded-xl border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs text-[var(--muted)]">
-                    {session?.user?.name ?? session?.user?.email ?? "Conectado"}
+                    {session?.user?.name ?? session?.user?.email ?? t.connected}
                   </span>
                   <button className="btn-ghost px-3 py-2 text-sm" onClick={handleLogout}>
-                    Sair
+                    {t.logout}
                   </button>
                 </div>
               ) : (
@@ -150,7 +279,7 @@ export function NavBar() {
                       : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
                   }`}
                 >
-                  Entrar
+                  {t.login}
                 </Link>
               )}
             </div>
