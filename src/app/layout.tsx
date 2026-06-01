@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { Bebas_Neue, Manrope } from "next/font/google";
 import { AuthSessionProvider } from "@/components/auth-session-provider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LOCALE_COOKIE_NAME, normalizeLocale, toHtmlLang } from "@/lib/locale";
 import "./globals.css";
 
@@ -93,7 +93,7 @@ export default async function RootLayout({
               &copy; {currentYear} StreamHub - Todos os conteudos externos continuam a ser propriedade do seu legitimo proprietario.
             </footer>
           </AuthSessionProvider>
-          <Analytics />
+          <SpeedInsights />
         </ErrorBoundary>
       </body>
     </html>
