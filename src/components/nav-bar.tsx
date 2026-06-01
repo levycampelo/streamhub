@@ -150,7 +150,7 @@ export function NavBar() {
                       key={link.href}
                       href={link.href}
                       className={
-                        "block rounded-lg border px-3 py-2.5 text-left text-sm font-semibold transition " +
+                        "block rounded-lg border px-3 py-2 text-center text-[0.95rem] font-semibold transition " +
                         (pathname === link.href
                           ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
                           : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
@@ -175,7 +175,7 @@ export function NavBar() {
                     <Link
                       href="/login"
                       className={
-                        "block rounded-lg border px-3 py-2.5 text-center text-sm font-semibold transition " +
+                        "block rounded-lg border px-3 py-2 text-center text-[0.95rem] font-semibold transition " +
                         (pathname === "/login"
                           ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
                           : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
