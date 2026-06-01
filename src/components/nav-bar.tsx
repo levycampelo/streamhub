@@ -123,11 +123,16 @@ export function NavBar() {
         <div className="flex items-center justify-between gap-3">
           <Link href="/" className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3c8dff]">
             <p className="text-[10px] uppercase tracking-[0.22em] text-[#7f9bc4] md:text-xs md:tracking-[0.28em]">Share StreamHub</p>
-            <img
-              src="/logos/teste_logo.PNG"
-              alt="SharingHub"
-              className="mt-1 h-8 w-auto md:h-9"
-            />
+            <div className="mt-0.5 flex items-end gap-1.5">
+              <img
+                src="/logos/teste_logo.PNG"
+                alt="SharingHub"
+                className="h-10 w-auto md:h-11"
+              />
+              <span className="pb-0.5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#7f9bc4] md:text-[0.72rem]">
+                BETA
+              </span>
+            </div>
           </Link>
 
           <div className="relative">
