@@ -173,7 +173,7 @@ export function NavBar() {
 
           <Link
             href="/"
-            className={ounded-xl border px-3 py-2 font-semibold transition }
+            className={`rounded-xl border px-3 py-2 font-semibold transition`}
           >
             {t.home}
           </Link>
@@ -186,7 +186,7 @@ export function NavBar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={ounded-xl border px-3 py-3 text-center text-sm font-semibold transition }
+                  className={`rounded-xl border px-3 py-3 text-center text-sm font-semibold transition }
                 >
                   {t[link.key]}
                 </Link>
