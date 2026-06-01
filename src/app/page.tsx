@@ -559,7 +559,9 @@ export default async function HomePage() {
               MAIS STREAM.
             </h2>
             <p className="hero-description">
-              Descubra onde assistir, controle gastos e receba sugestoes de economia no mesmo lugar.
+              Descubra onde assistir, controle gastos e receba sugestoes de economia no
+              <br />
+              mesmo lugar.
             </p>
           </div>
         </div>
