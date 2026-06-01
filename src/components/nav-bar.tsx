@@ -118,8 +118,8 @@ export function NavBar() {
   const t = navLabels[locale];
 
   return (
-    <header className="mx-auto mb-4 max-w-6xl px-4 pt-3 section-enter md:mb-5 md:pt-4">
-      <nav className="card px-3 py-2.5 backdrop-blur-sm md:px-4 md:py-3">
+    <header className="relative z-40 mx-auto mb-4 max-w-6xl px-4 pt-3 section-enter md:mb-5 md:pt-4">
+      <nav className="card relative z-40 px-3 py-2.5 backdrop-blur-sm md:px-4 md:py-3">
         <div className="flex items-center justify-between gap-3">
           <Link href="/" className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3c8dff]">
             <p className="text-[10px] uppercase tracking-[0.22em] text-[#7f9bc4] md:text-xs md:tracking-[0.28em]">Share StreamHub</p>
@@ -143,7 +143,7 @@ export function NavBar() {
             </button>
 
             {menuOpen ? (
-              <div className="absolute right-0 top-full z-20 mt-2 w-64 rounded-xl border border-[var(--line)] bg-[#0b1424]/95 p-2 shadow-2xl backdrop-blur-md">
+              <div className="absolute right-0 top-full z-50 mt-2 w-64 rounded-xl border border-[var(--line)] bg-[#0b1424]/95 p-2 shadow-2xl backdrop-blur-md">
                 <div className="space-y-1">
                   {menuLinks.map((link) => (
                     <Link
