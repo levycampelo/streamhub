@@ -6,12 +6,14 @@ type AutoPosterCarouselProps = {
   children: ReactNode;
   className?: string;
   speedPxPerSecond?: number;
+  direction?: "forward" | "reverse";
 };
 
 export function AutoPosterCarousel({
   children,
   className = "poster-carousel poster-carousel--auto",
   speedPxPerSecond = 36,
+  direction = "forward",
 }: AutoPosterCarouselProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const pausedRef = useRef(false);
@@ -34,8 +36,14 @@ export function AutoPosterCarousel({
       if (!pausedRef.current) {
         const maxScrollLeft = container.scrollWidth - container.clientWidth;
         if (maxScrollLeft > 0) {
-          const next = container.scrollLeft + speedPxPerSecond * deltaSeconds;
-          container.scrollLeft = next >= maxScrollLeft ? 0 : next;
+          const delta = speedPxPerSecond * deltaSeconds;
+          if (direction === "reverse") {
+            const next = container.scrollLeft - delta;
+            container.scrollLeft = next <= 0 ? maxScrollLeft : next;
+          } else {
+            const next = container.scrollLeft + delta;
+            container.scrollLeft = next >= maxScrollLeft ? 0 : next;
+          }
         }
       }
 
@@ -60,7 +68,7 @@ export function AutoPosterCarousel({
       container.removeEventListener("pointerenter", handlePointerEnter);
       container.removeEventListener("pointerleave", handlePointerLeave);
     };
-  }, [speedPxPerSecond]);
+  }, [direction, speedPxPerSecond]);
 
   return (
     <div ref={containerRef} className={className}>

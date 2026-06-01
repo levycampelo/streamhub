@@ -650,7 +650,7 @@ export default async function HomePage() {
         </div>
 
         {!trendingError ? (
-          <AutoPosterCarousel>
+          <AutoPosterCarousel direction="reverse">
             {trendingSeries.map((item) => (
               <article key={`tv-${item.id}`} className="poster-card">
                 <DeepLinkAnchor
