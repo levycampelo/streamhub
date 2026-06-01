@@ -8,21 +8,26 @@ import { AppLocale, LOCALE_COOKIE_NAME, normalizeLocale } from "@/lib/locale";
 
 type NavLinkKey = "home" | "search" | "watchlist" | "deepLinks" | "concierge";
 
-const links = [
+type NavLink = {
+  href: string;
+  key: NavLinkKey;
+};
+
+const links: ReadonlyArray<NavLink> = [
   { href: "/", key: "home" },
   { href: "/busca", key: "search" },
-] as const satisfies ReadonlyArray<{ href: string; key: NavLinkKey }>;
+];
 
-const protectedLinks = [
+const protectedLinks: ReadonlyArray<NavLink> = [
   { href: "/watchlist", key: "watchlist" },
   { href: "/deep-links", key: "deepLinks" },
   { href: "/concierge", key: "concierge" },
-] as const satisfies ReadonlyArray<{ href: string; key: NavLinkKey }>;
+];
 
 const localeOptions: Array<{ code: AppLocale; label: string; flag: string }> = [
-  { code: "pt", label: "PT", flag: "🇧🇷" },
-  { code: "en", label: "EN", flag: "🇺🇸" },
-  { code: "es", label: "ES", flag: "🇪🇸" },
+  { code: "pt", label: "PT", flag: "BR" },
+  { code: "en", label: "EN", flag: "US" },
+  { code: "es", label: "ES", flag: "ES" },
 ];
 
 const navLabels: Record<
@@ -87,7 +92,7 @@ function readLocaleFromCookie(): AppLocale {
 
   const cookie = document.cookie
     .split("; ")
-    .find((entry) => entry.startsWith(`${LOCALE_COOKIE_NAME}=`));
+    .find((entry) => entry.startsWith(${LOCALE_COOKIE_NAME}=));
 
   return normalizeLocale(cookie?.split("=")[1]);
 }
@@ -96,6 +101,7 @@ export function NavBar() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
   const isAuthenticated = status === "authenticated";
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [locale, setLocale] = useState<AppLocale>("pt");
 
@@ -113,10 +119,13 @@ export function NavBar() {
 
   function setLanguage(nextLocale: AppLocale) {
     setLocale(nextLocale);
-    document.cookie = `${LOCALE_COOKIE_NAME}=${nextLocale}; path=/; max-age=31536000; samesite=lax`;
+    document.cookie = ${LOCALE_COOKIE_NAME}=; path=/; max-age=31536000; samesite=lax;
   }
 
-  const allLinks = isAuthenticated ? [...links, ...protectedLinks] : links;
+  const menuLinks = isAuthenticated
+    ? [...links.filter((link) => link.key !== "home"), ...protectedLinks]
+    : links.filter((link) => link.key !== "home");
+
   const t = navLabels[locale];
 
   return (
@@ -144,7 +153,7 @@ export function NavBar() {
           </button>
         </div>
 
-        <div className={`mt-3 items-center gap-2 text-sm ${menuOpen ? "hidden md:flex md:flex-wrap" : "hidden"}`}>
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
           <div
             className="inline-flex items-center gap-1 rounded-full border border-[#2a436a] bg-[#0c1628] p-1"
             aria-label={t.languageAria}
@@ -154,11 +163,7 @@ export function NavBar() {
                 key={option.code}
                 type="button"
                 onClick={() => setLanguage(option.code)}
-                className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold transition ${
-                  locale === option.code
-                    ? "bg-[#00c28a] text-[#041018]"
-                    : "text-[#aac2e3] hover:bg-[#142746] hover:text-[#edf4ff]"
-                }`}
+                className={inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold transition }
               >
                 <span>{option.flag}</span>
                 <span>{option.label}</span>
@@ -166,94 +171,22 @@ export function NavBar() {
             ))}
           </div>
 
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`rounded-xl border px-3 py-2 font-semibold transition ${
-                pathname === link.href
-                  ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
-                  : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
-              }`}
-            >
-              {t[link.key]}
-            </Link>
-          ))}
-
-          {isAuthenticated
-            ? protectedLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`rounded-xl border px-3 py-2 font-semibold transition ${
-                    pathname === link.href
-                      ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
-                      : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
-                  }`}
-                >
-                  {t[link.key]}
-                </Link>
-              ))
-            : null}
-
-          <div className="ml-auto flex items-center gap-2">
-            {isAuthenticated ? (
-              <>
-                <span className="rounded-xl border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs text-[var(--muted)]">
-                  {session?.user?.name ?? session?.user?.email ?? t.connected}
-                </span>
-                <button className="btn-ghost px-3 py-2 text-sm" onClick={handleLogout}>
-                  {t.logout}
-                </button>
-              </>
-            ) : (
-              <Link
-                href="/login"
-                className={`rounded-xl border px-3 py-2 font-semibold transition ${
-                  pathname === "/login"
-                    ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
-                    : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
-                }`}
-              >
-                {t.login}
-              </Link>
-            )}
-          </div>
+          <Link
+            href="/"
+            className={ounded-xl border px-3 py-2 font-semibold transition }
+          >
+            {t.home}
+          </Link>
         </div>
 
         {menuOpen ? (
-          <div className="mt-3 space-y-3 rounded-xl border border-[var(--line)] bg-[#0b1424] p-3 md:hidden">
-            <div
-              className="inline-flex items-center gap-1 rounded-full border border-[#2a436a] bg-[#0c1628] p-1"
-              aria-label={t.languageAria}
-            >
-              {localeOptions.map((option) => (
-                <button
-                  key={option.code}
-                  type="button"
-                  onClick={() => setLanguage(option.code)}
-                  className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold transition ${
-                    locale === option.code
-                      ? "bg-[#00c28a] text-[#041018]"
-                      : "text-[#aac2e3] hover:bg-[#142746] hover:text-[#edf4ff]"
-                  }`}
-                >
-                  <span>{option.flag}</span>
-                  <span>{option.label}</span>
-                </button>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              {allLinks.map((link) => (
+          <div className="mt-3 space-y-3 rounded-xl border border-[var(--line)] bg-[#0b1424] p-3">
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+              {menuLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-xl border px-3 py-3 text-center text-sm font-semibold transition ${
-                    pathname === link.href
-                      ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
-                      : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
-                  }`}
+                  className={ounded-xl border px-3 py-3 text-center text-sm font-semibold transition }
                 >
                   {t[link.key]}
                 </Link>
@@ -273,11 +206,7 @@ export function NavBar() {
               ) : (
                 <Link
                   href="/login"
-                  className={`block rounded-xl border px-3 py-3 text-center text-sm font-semibold transition ${
-                    pathname === "/login"
-                      ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
-                      : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]"
-                  }`}
+                  className={lock rounded-xl border px-3 py-3 text-center text-sm font-semibold transition }
                 >
                   {t.login}
                 </Link>
