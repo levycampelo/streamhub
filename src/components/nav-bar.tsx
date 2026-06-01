@@ -131,57 +131,64 @@ export function NavBar() {
             </h1>
           </Link>
 
-          <button
-            type="button"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            className="rounded-xl border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs font-semibold text-[#c9dbf5] transition hover:border-[#2a436a] hover:text-[#e8f1ff]"
-            aria-expanded={menuOpen}
-            aria-label="Abrir menu de navegacao"
-          >
-            {menuOpen ? t.close : t.menu}
-          </button>
-        </div>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setMenuOpen((prev) => !prev)}
+              className="rounded-xl border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs font-semibold text-[#c9dbf5] transition hover:border-[#2a436a] hover:text-[#e8f1ff]"
+              aria-expanded={menuOpen}
+              aria-label="Abrir menu de navegacao"
+            >
+              {menuOpen ? t.close : t.menu}
+            </button>
 
-        {menuOpen ? (
-          <div className="mt-3 space-y-3 rounded-xl border border-[var(--line)] bg-[#0b1424] p-3">
-            <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-              {menuLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={"rounded-xl border px-3 py-3 text-center text-sm font-semibold transition " + (pathname === link.href ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]" : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")}
-                >
-                  {t[link.key]}
-                </Link>
-              ))}
-            </div>
-
-            <div className="border-t border-[var(--line)] pt-3">
-              {isAuthenticated ? (
-                <div className="flex items-center justify-between gap-2">
-                  <span className="truncate rounded-xl border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs text-[var(--muted)]">
-                    {session?.user?.name ?? session?.user?.email ?? t.connected}
-                  </span>
-                  <button className="btn-ghost px-3 py-2 text-sm" onClick={handleLogout}>
-                    {t.logout}
-                  </button>
+            {menuOpen ? (
+              <div className="absolute right-0 top-full z-20 mt-2 w-64 rounded-xl border border-[var(--line)] bg-[#0b1424]/95 p-2 shadow-2xl backdrop-blur-md">
+                <div className="space-y-1">
+                  {menuLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={
+                        "block rounded-lg border px-3 py-2.5 text-left text-sm font-semibold transition " +
+                        (pathname === link.href
+                          ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
+                          : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
+                      }
+                    >
+                      {t[link.key]}
+                    </Link>
+                  ))}
                 </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className={
-                    "block rounded-xl border px-3 py-3 text-center text-sm font-semibold transition " +
-                    (pathname === "/login"
-                      ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
-                      : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
-                  }
-                >
-                  {t.login}
-                </Link>
-              )}
-            </div>
+
+                <div className="mt-2 border-t border-[var(--line)] pt-2">
+                  {isAuthenticated ? (
+                    <div className="space-y-2">
+                      <span className="block truncate rounded-lg border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs text-[var(--muted)]">
+                        {session?.user?.name ?? session?.user?.email ?? t.connected}
+                      </span>
+                      <button className="btn-ghost w-full px-3 py-2 text-sm" onClick={handleLogout}>
+                        {t.logout}
+                      </button>
+                    </div>
+                  ) : (
+                    <Link
+                      href="/login"
+                      className={
+                        "block rounded-lg border px-3 py-2.5 text-center text-sm font-semibold transition " +
+                        (pathname === "/login"
+                          ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
+                          : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
+                      }
+                    >
+                      {t.login}
+                    </Link>
+                  )}
+                </div>
+              </div>
+            ) : null}
           </div>
-        ) : null}
+        </div>
       </nav>
     </header>
   );
