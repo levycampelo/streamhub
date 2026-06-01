@@ -252,7 +252,10 @@ export default function BuscaPage() {
                     <div className="mt-2">
                       <button
                         type="button"
-                        className="btn-ghost"
+                        className={
+                          "rounded-lg border border-[var(--line)] bg-[rgba(255,255,255,0.02)] px-3 py-1.5 text-sm font-semibold text-[var(--text)] " +
+                          "disabled:cursor-not-allowed disabled:opacity-70"
+                        }
                         onClick={() => handleAddToWatchlist(item)}
                         disabled={!isAuthenticated || watchlistKeys.includes(buildWatchlistKey(item.mediaType, item.id))}
                       >
