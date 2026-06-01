@@ -143,7 +143,7 @@ export function NavBar() {
             </button>
 
             {menuOpen ? (
-              <div className="absolute right-0 top-full z-50 mt-2 w-64 rounded-xl border border-[var(--line)] bg-[#0b1424]/95 p-2 shadow-2xl backdrop-blur-md">
+              <div className="absolute right-0 top-full z-50 mt-2 w-max min-w-[7.5rem] rounded-xl border border-[var(--line)] bg-[#0b1424]/95 p-2 shadow-2xl backdrop-blur-md">
                 <div className="space-y-1">
                   {menuLinks.map((link) => (
                     <Link
