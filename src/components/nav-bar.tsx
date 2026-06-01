@@ -122,7 +122,7 @@ export function NavBar() {
       <nav className="card relative z-40 px-3 py-2.5 backdrop-blur-sm md:px-4 md:py-3">
         <div className="flex items-center justify-between gap-3">
           <Link href="/" className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3c8dff]">
-            <p className="text-[10px] uppercase tracking-[0.22em] text-[#7f9bc4] md:text-xs md:tracking-[0.28em]">Share StreamHub</p>
+            {/* <p className="text-[10px] uppercase tracking-[0.22em] text-[#7f9bc4] md:text-xs md:tracking-[0.28em]">Share StreamHub</p> */}
             <div className="mt-0.5 flex items-end gap-1.5">
               <img
                 src="/logos/teste_logo.PNG"
