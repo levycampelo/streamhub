@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { NavBar } from "@/components/nav-bar";
 import { DeepLinkAnchor } from "@/components/deep-link-anchor";
 import { AutoPosterCarousel } from "@/components/auto-poster-carousel";
+import { GoogleAdUnit } from "@/components/google-ad-unit";
 import { getAuthenticatedUserId } from "@/lib/auth-user";
 import { listSubscriptions, parseSubscriptionsCookie, setSubscriptions, SUBSCRIPTIONS_COOKIE_NAME } from "@/lib/user-data";
 import { normalizeProviderName as normalizeDeepLinkProvider, type DeepLinkProvider } from "@/lib/deep-links";
@@ -639,6 +640,15 @@ export default async function HomePage() {
         )}
       </section>
 
+      {/* Ad banner entre filmes e series */}
+      <div className="mx-auto mt-6 max-w-6xl px-4">
+        <GoogleAdUnit
+          slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_BANNER_1 ?? ""}
+          format="horizontal"
+          className="overflow-hidden rounded-xl border border-[var(--line)] bg-[#060e1c] py-2 text-center text-xs text-[var(--muted)]"
+        />
+      </div>
+
       <section className="mx-auto mt-6 max-w-6xl px-4 section-enter stagger-2">
         <div className="mb-3 flex items-end justify-between">
           <h3 className="text-2xl font-semibold">
@@ -670,6 +680,15 @@ export default async function HomePage() {
           </AutoPosterCarousel>
         ) : null}
       </section>
+
+      {/* Ad banner entre series e populares */}
+      <div className="mx-auto mt-6 max-w-6xl px-4">
+        <GoogleAdUnit
+          slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_BANNER_2 ?? ""}
+          format="horizontal"
+          className="overflow-hidden rounded-xl border border-[var(--line)] bg-[#060e1c] py-2 text-center text-xs text-[var(--muted)]"
+        />
+      </div>
 
       <section className="mx-auto mt-6 max-w-6xl px-4 section-enter stagger-2">
         <div className="mb-3 flex items-end justify-between">

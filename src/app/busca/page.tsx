@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { NavBar } from "@/components/nav-bar";
+import { GoogleAdUnit } from "@/components/google-ad-unit";
 import { addToWatchlist, buildWatchlistKey, getWatchlist } from "@/lib/watchlist-storage";
 import { FormEvent, useEffect, useState } from "react";
 
@@ -149,7 +150,10 @@ export default function BuscaPage() {
     <main className="min-h-screen pb-12">
       <NavBar />
 
-      <section className="mx-auto max-w-6xl px-4">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="flex gap-6">
+          {/* Coluna principal */}
+          <section className="min-w-0 flex-1">
         <div className="card section-enter p-6">
           <h2 className="text-2xl font-semibold">Busca universal</h2>
           <p className="mt-1 text-sm text-[var(--muted)]">
@@ -275,7 +279,25 @@ export default function BuscaPage() {
             ))
           )}
         </div>
-      </section>
+          </section>
+
+          {/* Sidebar com anúncios — visível apenas em desktop */}
+          <aside className="hidden w-64 shrink-0 lg:block">
+            <div className="sticky top-6 flex flex-col gap-4">
+              <GoogleAdUnit
+                slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR ?? ""}
+                format="rectangle"
+                className="overflow-hidden rounded-xl border border-[var(--line)] bg-[#060e1c] py-2 text-center text-xs text-[var(--muted)]"
+              />
+              <GoogleAdUnit
+                slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR ?? ""}
+                format="rectangle"
+                className="overflow-hidden rounded-xl border border-[var(--line)] bg-[#060e1c] py-2 text-center text-xs text-[var(--muted)]"
+              />
+            </div>
+          </aside>
+        </div>
+      </div>
     </main>
   );
 }
