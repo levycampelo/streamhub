@@ -2,6 +2,11 @@
 
 import { useEffect } from "react";
 
+declare let adsbygoogle: unknown[];
+
+const ADSENSE_CLIENT = "ca-pub-9694036490209505";
+const DEFAULT_SLOT = "1077544455";
+
 declare global {
   interface Window {
     adsbygoogle: unknown[];
@@ -9,32 +14,26 @@ declare global {
 }
 
 type GoogleAdUnitProps = {
-  slot: string;
-  format?: "auto" | "rectangle" | "vertical" | "horizontal";
+  slot?: string;
   className?: string;
 };
 
-export function GoogleAdUnit({ slot, format = "auto", className }: GoogleAdUnitProps) {
+export function GoogleAdUnit({ slot, className }: GoogleAdUnitProps) {
   useEffect(() => {
     try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      (adsbygoogle = window.adsbygoogle || []).push({});
     } catch {
       // adsbygoogle not loaded yet
     }
   }, []);
 
-  const adClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
-  if (!adClient) return null;
-
   return (
     <div className={className} aria-label="Publicidade">
       <ins
         className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client={adClient}
-        data-ad-slot={slot}
-        data-ad-format={format}
-        data-full-width-responsive="true"
+        style={{ display: "inline-block", width: 728, height: 90 }}
+        data-ad-client={ADSENSE_CLIENT}
+        data-ad-slot={slot || DEFAULT_SLOT}
       />
     </div>
   );

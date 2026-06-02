@@ -105,19 +105,15 @@ export default async function RootLayout({
   const locale = normalizeLocale(cookieStore.get(LOCALE_COOKIE_NAME)?.value);
   const currentYear = new Date().getFullYear();
 
-  const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
-
   return (
     <html lang={toHtmlLang(locale)}>
       <head>
-        {adsenseClient && (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
-          />
-        )}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9694036490209505"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body className={`${headingFont.variable} ${uiFont.variable}`}>
         <ErrorBoundary>
