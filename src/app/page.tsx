@@ -644,7 +644,6 @@ export default async function HomePage() {
       <div className="mx-auto mt-6 max-w-6xl px-4">
         <GoogleAdUnit
           slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_BANNER_1 ?? ""}
-          format="horizontal"
           className="overflow-hidden rounded-xl border border-[var(--line)] bg-[#060e1c] py-2 text-center text-xs text-[var(--muted)]"
         />
       </div>
@@ -685,7 +684,6 @@ export default async function HomePage() {
       <div className="mx-auto mt-6 max-w-6xl px-4">
         <GoogleAdUnit
           slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_BANNER_2 ?? ""}
-          format="horizontal"
           className="overflow-hidden rounded-xl border border-[var(--line)] bg-[#060e1c] py-2 text-center text-xs text-[var(--muted)]"
         />
       </div>

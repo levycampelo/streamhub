@@ -2,7 +2,6 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { Bebas_Neue, Manrope } from "next/font/google";
-import Script from "next/script";
 import { AuthSessionProvider } from "@/components/auth-session-provider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -108,11 +107,10 @@ export default async function RootLayout({
   return (
     <html lang={toHtmlLang(locale)}>
       <head>
-        <Script
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9694036490209505"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
       </head>
       <body className={`${headingFont.variable} ${uiFont.variable}`}>
@@ -122,7 +120,6 @@ export default async function RootLayout({
             <div className="mx-auto mt-6 max-w-6xl px-4">
               <GoogleAdUnit
                 slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_FOOTER ?? ""}
-                format="horizontal"
                 className="overflow-hidden rounded-xl border border-[var(--line)] bg-[#060e1c] py-2 text-center text-xs text-[var(--muted)]"
               />
             </div>

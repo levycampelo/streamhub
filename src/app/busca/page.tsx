@@ -286,12 +286,10 @@ export default function BuscaPage() {
             <div className="sticky top-6 flex flex-col gap-4">
               <GoogleAdUnit
                 slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR ?? ""}
-                format="rectangle"
                 className="overflow-hidden rounded-xl border border-[var(--line)] bg-[#060e1c] py-2 text-center text-xs text-[var(--muted)]"
               />
               <GoogleAdUnit
                 slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR ?? ""}
-                format="rectangle"
                 className="overflow-hidden rounded-xl border border-[var(--line)] bg-[#060e1c] py-2 text-center text-xs text-[var(--muted)]"
               />
             </div>
