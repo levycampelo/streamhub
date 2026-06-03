@@ -23,6 +23,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true, summary });
   } catch (error: unknown) {
     console.error("streaming-news sync error", error);
-    return NextResponse.json({ error: "sync_failed" }, { status: 500 });
+    const message = error instanceof Error ? error.message : "unknown_error";
+    const isProd = process.env.NODE_ENV === "production";
+
+    return NextResponse.json(
+      {
+        error: "sync_failed",
+        reason: isProd ? undefined : message,
+      },
+      { status: 500 }
+    );
   }
 }

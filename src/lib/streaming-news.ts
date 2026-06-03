@@ -368,11 +368,11 @@ function detectEvents(currentRows: SnapshotRow[], previousRows: SnapshotRow[], e
 }
 
 function requireSupabaseEnv() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+  const url = (process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL)?.trim();
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
   if (!url || !serviceRole) {
-    throw new Error("NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY sao obrigatorios");
+    throw new Error("SUPABASE_URL/NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY sao obrigatorios");
   }
 
   return { url, serviceRole };
