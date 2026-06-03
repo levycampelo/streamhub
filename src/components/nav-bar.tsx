@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AppLocale, LOCALE_COOKIE_NAME, normalizeLocale } from "@/lib/locale";
 
-type NavLinkKey = "home" | "search" | "watchlist" | "deepLinks" | "concierge";
+type NavLinkKey = "home" | "search" | "news" | "watchlist" | "deepLinks" | "concierge";
 
 type NavLink = {
   href: string;
@@ -16,6 +16,7 @@ type NavLink = {
 const links: ReadonlyArray<NavLink> = [
   { href: "/", key: "home" },
   { href: "/busca", key: "search" },
+  { href: "/novidades", key: "news" },
 ];
 
 const protectedLinks: ReadonlyArray<NavLink> = [
@@ -29,6 +30,7 @@ const navLabels: Record<
   {
     home: string;
     search: string;
+    news: string;
     watchlist: string;
     deepLinks: string;
     concierge: string;
@@ -43,6 +45,7 @@ const navLabels: Record<
   pt: {
     home: "Home",
     search: "Busca",
+    news: "Novidades",
     watchlist: "Watchlist",
     deepLinks: "Deep Links",
     concierge: "IA Concierge",
@@ -56,6 +59,7 @@ const navLabels: Record<
   en: {
     home: "Home",
     search: "Search",
+    news: "News",
     watchlist: "Watchlist",
     deepLinks: "Deep Links",
     concierge: "AI Concierge",
@@ -69,6 +73,7 @@ const navLabels: Record<
   es: {
     home: "Inicio",
     search: "Buscar",
+    news: "Novedades",
     watchlist: "Watchlist",
     deepLinks: "Deep Links",
     concierge: "IA Concierge",

@@ -1,0 +1,28 @@
+import { NextRequest, NextResponse } from "next/server";
+import { runStreamingNewsSync } from "@/lib/streaming-news";
+
+function isAuthorized(request: NextRequest): boolean {
+  const expectedTokens = [
+    process.env.STREAMING_NEWS_CRON_SECRET?.trim(),
+    process.env.CRON_SECRET?.trim(),
+  ].filter((token): token is string => Boolean(token));
+
+  if (expectedTokens.length === 0) return false;
+
+  const authHeader = request.headers.get("authorization") || "";
+  return expectedTokens.some((token) => authHeader === `Bearer ${token}`);
+}
+
+export async function POST(request: NextRequest) {
+  if (!isAuthorized(request)) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const summary = await runStreamingNewsSync();
+    return NextResponse.json({ ok: true, summary });
+  } catch (error: unknown) {
+    console.error("streaming-news sync error", error);
+    return NextResponse.json({ error: "sync_failed" }, { status: 500 });
+  }
+}
