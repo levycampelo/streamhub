@@ -118,7 +118,7 @@ export function NavBar() {
 
   const menuLinks = isAuthenticated
     ? [...links.filter((link) => link.key !== "home"), ...protectedLinks]
-    : links.filter((link) => link.key !== "home");
+    : links.filter((link) => link.key !== "home" && link.key !== "news");
 
   const t = navLabels[locale];
 
