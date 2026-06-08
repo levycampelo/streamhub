@@ -42,6 +42,14 @@ const categoryAccent: Record<NewsCategory, string> = {
   recent_movies_12m: "border-[#15a1a4] bg-[rgba(21,161,164,0.16)] text-[#bdf5ef]",
 };
 
+const categoryPriority: Record<NewsCategory, number> = {
+  trending_movie: 1,
+  trending_tv: 1,
+  popular_movie: 2,
+  popular_tv: 2,
+  recent_movies_12m: 3,
+};
+
 function parseProvider(value?: string): ProviderKey | undefined {
   if (!value) return undefined;
   const normalized = value as ProviderKey;
@@ -65,6 +73,34 @@ export default async function NovidadesPage({ searchParams }: NovidadesPageProps
 
   const selectedProvider = parseProvider(providerParam);
   const feed = await fetchLatestStreamingNews(selectedProvider, 150);
+  const dedupedItemsMap = new Map<string, (typeof feed.items)[number]>();
+
+  for (const item of feed.items) {
+    const key = `${item.providerKey}|${item.mediaType}|${item.tmdbId}`;
+    const existing = dedupedItemsMap.get(key);
+
+    if (!existing) {
+      dedupedItemsMap.set(key, item);
+      continue;
+    }
+
+    const existingPriority = categoryPriority[existing.category];
+    const nextPriority = categoryPriority[item.category];
+    if (nextPriority < existingPriority) {
+      dedupedItemsMap.set(key, item);
+      continue;
+    }
+
+    if (nextPriority === existingPriority) {
+      const existingScore = existing.voteAverage ?? 0;
+      const nextScore = item.voteAverage ?? 0;
+      if (nextScore > existingScore) {
+        dedupedItemsMap.set(key, item);
+      }
+    }
+  }
+
+  const dedupedItems = [...dedupedItemsMap.values()];
   const addedCount = feed.events.filter((event) => event.eventType === "added").length;
   const removedCount = feed.events.filter((event) => event.eventType === "removed").length;
 
@@ -110,7 +146,7 @@ export default async function NovidadesPage({ searchParams }: NovidadesPageProps
             </div>
             <div className="rounded-xl border border-[#22436f] bg-[rgba(9,29,56,0.84)] p-3">
               <p className="text-xs uppercase tracking-[0.14em] text-[#9fc4f2]">Titulos monitorados</p>
-              <p className="mt-1 text-2xl font-semibold text-[#f1f7ff]">{feed.items.length}</p>
+              <p className="mt-1 text-2xl font-semibold text-[#f1f7ff]">{dedupedItems.length}</p>
             </div>
           </div>
 
@@ -214,7 +250,7 @@ export default async function NovidadesPage({ searchParams }: NovidadesPageProps
               {feed.items.length === 0 ? (
                 <p className="text-sm text-[var(--muted)]">Nenhum item disponivel ainda. Execute o sync diario.</p>
               ) : (
-                feed.items.map((item) => (
+                dedupedItems.map((item) => (
                   <div
                     key={`${item.providerKey}-${item.mediaType}-${item.tmdbId}-${item.category}`}
                     className="group flex gap-3 rounded-xl border border-[var(--line)] bg-[#0b1424] p-3 transition hover:border-[#3a69a9] hover:bg-[#0d1a2f]"
