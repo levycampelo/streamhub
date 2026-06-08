@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { NavBar } from "@/components/nav-bar";
 import {
   MONITORED_PROVIDERS,
@@ -7,6 +8,7 @@ import {
   type NewsCategory,
   type ProviderKey,
 } from "@/lib/streaming-news";
+import { getAuthenticatedUserId } from "@/lib/auth-user";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXTAUTH_URL ?? "http://localhost:3000";
 
@@ -51,6 +53,11 @@ type NovidadesPageProps = {
 };
 
 export default async function NovidadesPage({ searchParams }: NovidadesPageProps) {
+  const userId = await getAuthenticatedUserId();
+  if (!userId) {
+    redirect("/login");
+  }
+
   const resolvedParams = (await searchParams) ?? {};
   const providerParam = Array.isArray(resolvedParams.provider)
     ? resolvedParams.provider[0]
