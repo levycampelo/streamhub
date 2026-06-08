@@ -13,7 +13,7 @@ function isAuthorized(request: NextRequest): boolean {
   return expectedTokens.some((token) => authHeader === `Bearer ${token}`);
 }
 
-export async function POST(request: NextRequest) {
+async function handleSync(request: NextRequest) {
   if (!isAuthorized(request)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
@@ -34,4 +34,12 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+export async function GET(request: NextRequest) {
+  return handleSync(request);
+}
+
+export async function POST(request: NextRequest) {
+  return handleSync(request);
 }
