@@ -13,7 +13,7 @@ const fullCheckout = process.env.NEXT_PUBLIC_MP_FULL_CHECKOUT_URL ?? "https://ww
 
 const plans: Plan[] = [
   {
-    name: "Standard",
+    name: "Basico",
     price: "R$ 4,90",
     checkoutUrl: standardCheckout,
     features: [
@@ -22,7 +22,7 @@ const plans: Plan[] = [
     ],
   },
   {
-    name: "Full",
+    name: "Completo",
     price: "R$ 6,80",
     checkoutUrl: fullCheckout,
     highlight: true,
