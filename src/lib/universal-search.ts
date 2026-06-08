@@ -63,6 +63,21 @@ export type UniversalSearchResult = {
 const CACHE_TTL_MS = 5 * 60 * 1000;
 const cache = new Map<string, { expiresAt: number; data: UniversalSearchResult[] }>();
 
+function normalizeSupportedProvider(value: string): string | null {
+  const normalized = value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+
+  if (normalized.includes("netflix")) return "Netflix";
+  if (normalized === "prime video" || normalized.includes("amazon prime")) return "Prime Video";
+  if (normalized.includes("disney")) return "Disney+";
+  if (normalized === "max" || normalized.includes("hbo max")) return "Max";
+
+  return null;
+}
+
 function getTmdbAuth(): { headers: HeadersInit; apiKeyForQuery?: string } {
   const apiKey = process.env.TMDB_API_KEY?.trim();
   const readAccessToken = process.env.TMDB_API_READ_ACCESS_TOKEN?.trim();
@@ -109,7 +124,13 @@ function toYear(date?: string): string {
 
 function uniqueNames(list?: ProviderRecord[]): string[] {
   if (!list) return [];
-  return [...new Set(list.map((item) => item.provider_name).filter(Boolean))].slice(0, 8);
+  return [
+    ...new Set(
+      list
+        .map((item) => normalizeSupportedProvider(item.provider_name))
+        .filter((name): name is string => Boolean(name))
+    ),
+  ].slice(0, 8);
 }
 
 function encodeSearchTerm(title: string): string {
@@ -132,17 +153,6 @@ function buildProviderUrl(providerName: string, title: string): string | null {
     case "max":
     case "hbo max":
       return `https://play.max.com/search?q=${query}`;
-    case "apple tv plus":
-    case "apple tv+":
-    case "apple tv":
-      return `https://tv.apple.com/br/search?term=${query}`;
-    case "paramount+":
-    case "paramount plus":
-      return `https://www.paramountplus.com/br/search/?q=${query}`;
-    case "globoplay":
-      return `https://globoplay.globo.com/busca/?q=${query}`;
-    case "telecine amazon channel":
-      return `https://www.primevideo.com/search/ref=atv_nb_sr?phrase=${query}`;
     default:
       return null;
   }

@@ -76,9 +76,6 @@ const TMDB_PROVIDER_IDS: Record<string, number> = {
   "prime video": 119,
   "disney+": 337,
   max: 384,
-  "apple tv+": 350,
-  "paramount+": 531,
-  globoplay: 307,
 };
 
 function normalizeServiceName(value: string): string {
@@ -100,20 +97,8 @@ function normalizeServiceName(value: string): string {
     return "max";
   }
 
-  if (normalized.includes("apple tv")) {
-    return "apple tv+";
-  }
-
-  if (normalized.includes("paramount")) {
-    return "paramount+";
-  }
-
   if (normalized.includes("netflix")) {
     return "netflix";
-  }
-
-  if (normalized.includes("globoplay")) {
-    return "globoplay";
   }
 
   return normalized;
@@ -274,18 +259,6 @@ function buildProviderSearchUrl(provider: DeepLinkProvider, title: string): stri
       return `https://www.disneyplus.com/search?q=${query}`;
     case "Max":
       return `https://play.max.com/search?q=${query}`;
-    case "Apple TV+":
-      return `https://tv.apple.com/br/search?term=${query}`;
-    case "Paramount+":
-      return `https://www.paramountplus.com/br/search/?q=${query}`;
-    case "Globoplay":
-      return `https://globoplay.globo.com/busca/?q=${query}`;
-    case "YouTube":
-      return `https://www.youtube.com/results?search_query=${query}`;
-    case "Spotify":
-      return `https://open.spotify.com/search/${query}`;
-    case "Crunchyroll":
-      return `https://www.crunchyroll.com/search?q=${query}`;
     default:
       return `https://www.google.com/search?q=${query}`;
   }
@@ -379,16 +352,6 @@ const streamingServices = [
     label: "HBO e grandes lancamentos",
     tier: "Filmes e drama",
     accent: "#b489ff",
-  },
-  {
-    name: "Paramount+",
-    logo: "/logos/paramount-plus.svg",
-    logoClass: "service-logo--strong",
-    href: "https://www.paramountplus.com/br/",
-    price: "R$ 34,90",
-    label: "Franquias, filmes e series exclusivas",
-    tier: "Catalogo exclusivo",
-    accent: "#8fb4ff",
   },
 ];
 

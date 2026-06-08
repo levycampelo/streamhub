@@ -51,20 +51,12 @@ function buildWatchLabel(provider: string | null): string {
     return "Ver no Prime Video";
   }
 
-  if (normalized === "apple tv" || normalized === "apple tv+" || normalized === "apple tv plus") {
-    return "Ver no Apple TV";
-  }
-
   if (normalized === "disney+") {
     return "Ver no Disney+";
   }
 
   if (normalized === "max") {
     return "Ver na Max";
-  }
-
-  if (normalized === "paramount+") {
-    return "Ver no Paramount+";
   }
 
   return `Ver em ${provider}`;

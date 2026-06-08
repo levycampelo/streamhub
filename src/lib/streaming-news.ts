@@ -8,7 +8,6 @@ export const MONITORED_PROVIDERS = {
   disney_plus: { tmdbId: 337, label: "Disney+" },
   prime_video: { tmdbId: 119, label: "Prime Video" },
   max: { tmdbId: 384, label: "Max" },
-  paramount_plus: { tmdbId: 531, label: "Paramount+" },
 } as const;
 
 export type ProviderKey = keyof typeof MONITORED_PROVIDERS;
@@ -535,10 +534,13 @@ export async function fetchLatestStreamingNews(provider?: ProviderKey, limit = 1
 
   const previousSnapshotDate = await getPreviousSnapshotDate(snapshotDate);
 
+  const supportedProviderKeys = Object.keys(MONITORED_PROVIDERS) as ProviderKey[];
+  const inList = supportedProviderKeys.join(",");
   const providerFilter = provider ? `&provider_key=eq.${provider}` : "";
+  const supportedFilter = `&provider_key=in.(${inList})`;
 
   const itemsResponse = await supabaseRequest(
-    `streaming_catalog_items?select=snapshot_date,category,provider_key,provider_name,media_type,tmdb_id,title,poster_path,release_date,vote_average,popularity,score&snapshot_date=eq.${snapshotDate}${providerFilter}&order=score.desc.nullslast&limit=${Math.max(1, Math.min(limit, 200))}`,
+    `streaming_catalog_items?select=snapshot_date,category,provider_key,provider_name,media_type,tmdb_id,title,poster_path,release_date,vote_average,popularity,score&snapshot_date=eq.${snapshotDate}${supportedFilter}${providerFilter}&order=score.desc.nullslast&limit=${Math.max(1, Math.min(limit, 200))}`,
     { method: "GET" }
   );
 
@@ -551,7 +553,7 @@ export async function fetchLatestStreamingNews(provider?: ProviderKey, limit = 1
   >;
 
   const eventsResponse = await supabaseRequest(
-    `streaming_catalog_events?select=event_date,event_type,category,provider_key,provider_name,media_type,tmdb_id,title,poster_path,metadata&event_date=eq.${snapshotDate}${providerFilter}&order=event_type.asc,title.asc&limit=200`,
+    `streaming_catalog_events?select=event_date,event_type,category,provider_key,provider_name,media_type,tmdb_id,title,poster_path,metadata&event_date=eq.${snapshotDate}${supportedFilter}${providerFilter}&order=event_type.asc,title.asc&limit=200`,
     { method: "GET" }
   );
 

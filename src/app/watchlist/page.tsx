@@ -12,7 +12,7 @@ import {
   type WatchStatus,
 } from "@/lib/watchlist-storage";
 
-const STREAM_FILTERS = ["todos", "Netflix", "Prime Video", "Disney+", "Max", "Apple TV+"] as const;
+const STREAM_FILTERS = ["todos", "Netflix", "Prime Video", "Disney+", "Max"] as const;
 
 type StreamFilter = (typeof STREAM_FILTERS)[number];
 
@@ -40,14 +40,6 @@ function normalizeProviderName(value: string): string {
 
   if (normalized.includes("hbo max") || normalized === "max") {
     return "max";
-  }
-
-  if (normalized.includes("apple tv")) {
-    return "apple tv+";
-  }
-
-  if (normalized.includes("paramount")) {
-    return "paramount+";
   }
 
   if (normalized.includes("netflix")) {

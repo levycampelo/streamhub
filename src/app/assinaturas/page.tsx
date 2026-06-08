@@ -74,9 +74,6 @@ const STREAMING_OPTIONS: Array<{ name: string; suggestedPrice: number }> = [
   { name: "Prime Video", suggestedPrice: 19.9 },
   { name: "Disney+", suggestedPrice: 43.9 },
   { name: "Max", suggestedPrice: 22.9 },
-  { name: "Paramount+", suggestedPrice: 34.9 },
-  { name: "Apple TV+", suggestedPrice: 21.9 },
-  { name: "Globoplay", suggestedPrice: 22.9 },
 ];
 
 function money(value: number): string {

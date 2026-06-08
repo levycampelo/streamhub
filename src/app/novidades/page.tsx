@@ -85,7 +85,7 @@ export default async function NovidadesPage({ searchParams }: NovidadesPageProps
             <p className="text-xs uppercase tracking-[0.22em] text-[#8ab7f7]">Radar StreamHub</p>
             <h1 className="mt-2 text-3xl font-semibold md:text-4xl">Novidades dos Streamings</h1>
             <p className="mt-2 max-w-3xl text-sm text-[#b9cbe8] md:text-base">
-              Painel diario para Brasil com entradas e saidas de catalogo em Netflix, Disney+, Prime Video, Max e Paramount+.
+              Painel diario para Brasil com entradas e saidas de catalogo em Netflix, Disney+, Prime Video e Max.
             </p>
             <p className="mt-3 text-xs text-[#9bb0d2]">
               Snapshot atual: {feed.snapshotDate ?? "--"} | Snapshot anterior: {feed.previousSnapshotDate ?? "--"}
