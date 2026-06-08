@@ -17,10 +17,8 @@ const plans: Plan[] = [
     price: "R$ 4,90",
     checkoutUrl: standardCheckout,
     features: [
-      "Alertas de entrada e saida de catalogo",
       "Analise das suas assinaturas",
       "Watchlist ilimitada",
-      "Historico de precos",
     ],
   },
   {
@@ -32,7 +30,6 @@ const plans: Plan[] = [
       "Alertas de entrada e saida de catalogo",
       "Analise das suas assinaturas",
       "Watchlist ilimitada",
-      "Historico de precos",
       "IA Concierge",
     ],
   },
