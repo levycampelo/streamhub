@@ -2,6 +2,7 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { Bebas_Neue, Manrope } from "next/font/google";
+import Script from "next/script";
 import { AuthSessionProvider } from "@/components/auth-session-provider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -104,10 +105,11 @@ export default async function RootLayout({
   return (
     <html lang={toHtmlLang(locale)}>
       <head>
-        <script
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9694036490209505"
           crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
       </head>
       <body className={`${headingFont.variable} ${uiFont.variable}`}>

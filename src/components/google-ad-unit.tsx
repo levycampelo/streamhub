@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 
 const ADSENSE_CLIENT = "ca-pub-9694036490209505";
+const DEFAULT_SLOT = "1077544455";
 
 declare global {
   interface Window {
@@ -16,23 +17,15 @@ type GoogleAdUnitProps = {
 };
 
 export function GoogleAdUnit({ slot, className }: GoogleAdUnitProps) {
-  const resolvedSlot = slot?.trim();
+  const resolvedSlot = slot?.trim() || DEFAULT_SLOT;
 
   useEffect(() => {
-    if (!resolvedSlot) {
-      return;
-    }
-
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch {
       // adsbygoogle not loaded yet
     }
   }, [resolvedSlot]);
-
-  if (!resolvedSlot) {
-    return null;
-  }
 
   return (
     <div className={className} aria-label="Publicidade">
