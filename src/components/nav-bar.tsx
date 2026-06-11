@@ -144,7 +144,7 @@ export function NavBar() {
             <Link
               href="/assinatura"
               className={
-                "inline-flex h-8 min-w-[92px] items-center justify-center rounded-[0.7rem] border px-2.5 text-[0.83rem] font-semibold tracking-[0.01em] text-white transition sm:h-9 sm:min-w-[104px] sm:rounded-xl sm:px-3 sm:text-[0.9rem] md:h-10 md:min-w-[110px] md:px-4 md:text-sm " +
+                "inline-flex h-9 min-w-[98px] items-center justify-center rounded-lg border px-3 text-[0.88rem] font-semibold tracking-[0.01em] text-white transition sm:h-10 sm:min-w-[110px] sm:rounded-xl sm:px-4 sm:text-sm " +
                 (pathname === "/assinatura"
                   ? "border-[#ff6b61] bg-[#d93d35] shadow-[0_8px_22px_rgba(217,61,53,0.3)]"
                   : "border-[#ff6b61] bg-[#e04a42] hover:bg-[#ef5a52] hover:shadow-[0_8px_22px_rgba(224,74,66,0.28)]")
@@ -156,7 +156,7 @@ export function NavBar() {
             <button
               type="button"
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="inline-flex h-8 min-w-[78px] items-center justify-center rounded-[0.7rem] border border-[#2a3f63] bg-[#0c1628] px-2.5 text-[0.83rem] font-semibold tracking-[0.01em] text-[#d7e5ff] transition hover:border-[#3e5f93] hover:bg-[#101d33] hover:text-[#f2f7ff] sm:h-9 sm:min-w-[88px] sm:rounded-xl sm:px-3 sm:text-[0.9rem] md:h-10 md:min-w-[96px] md:px-4 md:text-sm"
+              className="inline-flex h-9 min-w-[84px] items-center justify-center rounded-lg border border-[#2a3f63] bg-[#0c1628] px-3 text-[0.88rem] font-semibold tracking-[0.01em] text-[#d7e5ff] transition hover:border-[#3e5f93] hover:bg-[#101d33] hover:text-[#f2f7ff] sm:h-10 sm:min-w-[96px] sm:rounded-xl sm:px-4 sm:text-sm"
               aria-expanded={menuOpen}
               aria-label="Abrir menu de navegacao"
             >
@@ -164,32 +164,33 @@ export function NavBar() {
             </button>
 
             {menuOpen ? (
-              <div className="absolute right-0 top-full z-50 mt-1.5 w-[198px] max-w-[calc(100vw-0.75rem)] rounded-[0.9rem] border border-[#253a5f] bg-[linear-gradient(180deg,rgba(10,20,36,0.96)_0%,rgba(8,16,30,0.96)_100%)] p-1.25 shadow-[0_12px_28px_rgba(0,0,0,0.45)] backdrop-blur-md sm:w-[220px] sm:rounded-xl sm:p-1.5 md:mt-2 md:w-[236px] md:rounded-2xl md:p-2">
-                <div className="flex flex-col gap-1.25 sm:gap-1.5 md:gap-2">
+              <div className="absolute right-0 top-full z-50 mt-1.5 w-[220px] max-w-[calc(100vw-1rem)] rounded-xl border border-[#253a5f] bg-[linear-gradient(180deg,rgba(10,20,36,0.98)_0%,rgba(8,16,30,0.98)_100%)] p-1.5 shadow-[0_16px_36px_rgba(0,0,0,0.5)] backdrop-blur-md sm:mt-2 sm:w-[236px] sm:rounded-2xl sm:p-2">
+                <div className="flex flex-col gap-1.5">
                   {menuLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className={
-                        "inline-flex h-8 w-full items-center justify-center rounded-[0.65rem] border px-2.5 text-[0.83rem] font-medium tracking-[0.01em] transition sm:h-9 sm:rounded-lg sm:px-3 sm:text-[0.9rem] md:h-10 md:rounded-xl md:px-4 md:text-sm " +
+                        "inline-flex h-9 w-full items-center justify-start rounded-lg border px-3 text-[0.88rem] font-medium tracking-[0.01em] transition sm:h-10 sm:rounded-xl sm:px-4 sm:text-sm " +
                         (pathname === link.href
                           ? "border-[#4b87e8] bg-[#17315b] text-[#f3f8ff]"
                           : "border-[#263d62] bg-[#0e1a2e] text-[#b8c9e6] hover:border-[#3f6297] hover:bg-[#12233d] hover:text-[#edf4ff]")
                       }
                     >
-                      {t[link.key]}
+                      <span className="mr-2 h-1.5 w-1.5 rounded-full bg-current opacity-70" aria-hidden />
+                      <span className="truncate">{t[link.key]}</span>
                     </Link>
                   ))}
                 </div>
 
-                <div className="mt-1.25 border-t border-[#263d62] pt-1.25 sm:mt-1.5 sm:pt-1.5 md:mt-2 md:pt-2">
+                <div className="mt-1.5 border-t border-[#263d62] pt-1.5 sm:mt-2 sm:pt-2">
                   {isAuthenticated ? (
-                    <div className="space-y-1.25 sm:space-y-1.5 md:space-y-2">
-                      <span className="block truncate rounded-[0.65rem] border border-[#263d62] bg-[#0f1d33] px-2.5 py-1.25 text-[0.82rem] text-[#93a9cc] sm:rounded-lg sm:px-3 sm:py-1.5 sm:text-[0.88rem] md:rounded-xl md:py-2 md:text-sm">
+                    <div className="space-y-1.5 sm:space-y-2">
+                      <span className="block truncate rounded-lg border border-[#263d62] bg-[#0f1d33] px-3 py-1.5 text-[0.82rem] text-[#93a9cc] sm:rounded-xl sm:py-2 sm:text-sm">
                         {session?.user?.name ?? session?.user?.email ?? t.connected}
                       </span>
                       <button
-                        className="inline-flex h-8 w-full items-center justify-center rounded-[0.65rem] border border-[#314f7d] bg-[#12233d] px-2.5 text-[0.83rem] font-semibold text-[#edf4ff] transition hover:border-[#466ea9] hover:bg-[#17315b] sm:h-9 sm:rounded-lg sm:px-3 sm:text-[0.9rem] md:h-10 md:rounded-xl md:px-4 md:text-sm"
+                        className="inline-flex h-9 w-full items-center justify-center rounded-lg border border-[#314f7d] bg-[#12233d] px-3 text-[0.88rem] font-semibold text-[#edf4ff] transition hover:border-[#466ea9] hover:bg-[#17315b] sm:h-10 sm:rounded-xl sm:px-4 sm:text-sm"
                         onClick={handleLogout}
                       >
                         {t.logout}
@@ -199,7 +200,7 @@ export function NavBar() {
                     <Link
                       href="/login"
                       className={
-                        "inline-flex h-8 w-full items-center justify-center rounded-[0.65rem] border px-2.5 text-[0.83rem] font-semibold tracking-[0.01em] transition sm:h-9 sm:rounded-lg sm:px-3 sm:text-[0.9rem] md:h-10 md:rounded-xl md:px-4 md:text-sm " +
+                        "inline-flex h-9 w-full items-center justify-center rounded-lg border px-3 text-[0.88rem] font-semibold tracking-[0.01em] transition sm:h-10 sm:rounded-xl sm:px-4 sm:text-sm " +
                         (pathname === "/login"
                           ? "border-[#4b87e8] bg-[#17315b] text-[#f3f8ff]"
                           : "border-[#263d62] bg-[#0e1a2e] text-[#b8c9e6] hover:border-[#3f6297] hover:bg-[#12233d] hover:text-[#edf4ff]")
