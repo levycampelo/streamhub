@@ -144,10 +144,10 @@ export function NavBar() {
             <Link
               href="/assinatura"
               className={
-                "rounded-xl border px-3 py-2 text-xs font-semibold text-white transition " +
+                "inline-flex h-11 min-w-[116px] items-center justify-center rounded-xl border px-4 text-sm font-semibold tracking-[0.01em] text-white transition " +
                 (pathname === "/assinatura"
-                  ? "border-[#ff6b61] bg-[#d93d35]"
-                  : "border-[#ff6b61] bg-[#e04a42] hover:bg-[#ef5a52]")
+                  ? "border-[#ff6b61] bg-[#d93d35] shadow-[0_8px_22px_rgba(217,61,53,0.3)]"
+                  : "border-[#ff6b61] bg-[#e04a42] hover:bg-[#ef5a52] hover:shadow-[0_8px_22px_rgba(224,74,66,0.28)]")
               }
             >
               Assinatura
@@ -156,7 +156,7 @@ export function NavBar() {
             <button
               type="button"
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="rounded-xl border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs font-semibold text-[#c9dbf5] transition hover:border-[#2a436a] hover:text-[#e8f1ff]"
+              className="inline-flex h-11 min-w-[96px] items-center justify-center rounded-xl border border-[#2a3f63] bg-[#0c1628] px-4 text-sm font-semibold tracking-[0.01em] text-[#d7e5ff] transition hover:border-[#3e5f93] hover:bg-[#101d33] hover:text-[#f2f7ff]"
               aria-expanded={menuOpen}
               aria-label="Abrir menu de navegacao"
             >
@@ -164,17 +164,17 @@ export function NavBar() {
             </button>
 
             {menuOpen ? (
-              <div className="absolute right-0 top-full z-50 mt-1.5 w-max min-w-[6.5rem] rounded-lg border border-[var(--line)] bg-[#0b1424]/95 p-1.5 shadow-2xl backdrop-blur-md">
-                <div className="flex flex-col items-center gap-1">
+              <div className="absolute right-0 top-full z-50 mt-2 w-[250px] rounded-2xl border border-[#253a5f] bg-[linear-gradient(180deg,rgba(10,20,36,0.96)_0%,rgba(8,16,30,0.96)_100%)] p-2 shadow-[0_18px_48px_rgba(0,0,0,0.45)] backdrop-blur-md">
+                <div className="flex flex-col gap-2">
                   {menuLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className={
-                        "flex w-fit items-center justify-center rounded-md border px-3 py-2 text-xs font-semibold transition " +
+                        "inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-medium tracking-[0.01em] transition " +
                         (pathname === link.href
-                          ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
-                          : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
+                          ? "border-[#4b87e8] bg-[#17315b] text-[#f3f8ff]"
+                          : "border-[#263d62] bg-[#0e1a2e] text-[#b8c9e6] hover:border-[#3f6297] hover:bg-[#12233d] hover:text-[#edf4ff]")
                       }
                     >
                       {t[link.key]}
@@ -182,13 +182,16 @@ export function NavBar() {
                   ))}
                 </div>
 
-                <div className="mt-1.5 border-t border-[var(--line)] pt-1.5">
+                <div className="mt-2 border-t border-[#263d62] pt-2">
                   {isAuthenticated ? (
                     <div className="space-y-2">
-                      <span className="block truncate rounded-lg border border-[var(--line)] bg-[#0c1628] px-3 py-2 text-xs text-[var(--muted)]">
+                      <span className="block truncate rounded-xl border border-[#263d62] bg-[#0f1d33] px-3 py-2 text-sm text-[#93a9cc]">
                         {session?.user?.name ?? session?.user?.email ?? t.connected}
                       </span>
-                      <button className="btn-ghost w-full px-3 py-2 text-sm" onClick={handleLogout}>
+                      <button
+                        className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-[#314f7d] bg-[#12233d] px-4 text-sm font-semibold text-[#edf4ff] transition hover:border-[#466ea9] hover:bg-[#17315b]"
+                        onClick={handleLogout}
+                      >
                         {t.logout}
                       </button>
                     </div>
@@ -196,10 +199,10 @@ export function NavBar() {
                     <Link
                       href="/login"
                       className={
-                        "mx-auto flex w-fit items-center justify-center rounded-md border px-3 py-2 text-xs font-semibold transition " +
+                        "inline-flex h-11 w-full items-center justify-center rounded-xl border px-4 text-sm font-semibold tracking-[0.01em] transition " +
                         (pathname === "/login"
-                          ? "border-[#3c8dff] bg-[#142746] text-[#edf4ff]"
-                          : "border-[var(--line)] bg-[#0c1628] text-[#9fb4d5] hover:border-[#2a436a] hover:text-[#e8f1ff]")
+                          ? "border-[#4b87e8] bg-[#17315b] text-[#f3f8ff]"
+                          : "border-[#263d62] bg-[#0e1a2e] text-[#b8c9e6] hover:border-[#3f6297] hover:bg-[#12233d] hover:text-[#edf4ff]")
                       }
                     >
                       {t.login}
