@@ -185,7 +185,7 @@ export function NavBar() {
                 <div className="mt-1 border-t border-[#2a4066] pt-1">
                   {isAuthenticated ? (
                     <div className="space-y-1">
-                      <span className="block truncate rounded-[7px] border border-[#2a4066] bg-[#0f1d33] px-2 py-1 text-[10px] !leading-none text-[#93a9cc] sm:text-[10px] md:text-[11px]">
+                      <span className="block truncate rounded-[7px] border border-[#2a4066] bg-[#0f1d33] px-2 py-1 text-center text-[10px] !leading-none text-[#93a9cc] sm:text-[10px] md:text-[11px]">
                         {session?.user?.name ?? session?.user?.email ?? t.connected}
                       </span>
                       <button
