@@ -48,6 +48,7 @@ type TmdbTrendingResponse = {
 
 type ProviderRecord = {
   provider_name: string;
+  logo_path?: string | null;
 };
 
 type TmdbProvidersResponse = {
@@ -69,6 +70,8 @@ type TrendingCard = {
   deepLinkUrl: string | null;
   webFallbackUrl: string | null;
   linkProvider: DeepLinkProvider | null;
+  providerLogoUrl: string | null;
+  providerLogoAlt: string | null;
 };
 
 const STREAMING_PROVIDER_LOGOS: Record<DeepLinkProvider, { src: string; alt: string }> = {
@@ -182,8 +185,17 @@ function toTrendingCards(items: TmdbTrendingItem[], mediaType: "movie" | "tv", l
         deepLinkUrl: null,
         webFallbackUrl: null,
         linkProvider: null,
+        providerLogoUrl: null,
+        providerLogoAlt: null,
       };
     });
+}
+
+function toTmdbProviderLogoUrl(logoPath: string | null | undefined): string | null {
+  if (!logoPath) {
+    return null;
+  }
+  return `https://image.tmdb.org/t/p/w154${logoPath}`;
 }
 
 function interleaveCards(first: TrendingCard[], second: TrendingCard[], maxItems = 15): TrendingCard[] {
@@ -335,6 +347,10 @@ async function attachDeepLinksForSubscriptions(
         if (!selectedProvider) {
           return card;
         }
+
+        const selectedProviderRecord =
+          rawProviders.find((provider) => normalizeDeepLinkProvider(provider.provider_name) === selectedProvider) ?? null;
+
         const universalProviderUrl = buildProviderSearchUrl(selectedProvider, card.title);
 
         return {
@@ -342,6 +358,8 @@ async function attachDeepLinksForSubscriptions(
           deepLinkUrl: universalProviderUrl,
           webFallbackUrl: universalProviderUrl,
           linkProvider: selectedProvider,
+          providerLogoUrl: toTmdbProviderLogoUrl(selectedProviderRecord?.logo_path),
+          providerLogoAlt: selectedProviderRecord?.provider_name ?? selectedProvider,
         };
       } catch {
         return card;
@@ -360,11 +378,10 @@ async function attachProviderBadges(cards: TrendingCard[]): Promise<TrendingCard
       try {
         const providerData = await fetchTmdbData<TmdbProvidersResponse>(`/${card.mediaType}/${card.id}/watch/providers`, {});
         const br = providerData.results?.BR;
-        const rawProviders = [
-          ...(br?.flatrate ?? []),
-          ...(br?.rent ?? []),
-          ...(br?.buy ?? []),
-        ];
+        const rawProviders = [...(br?.flatrate ?? []), ...(br?.rent ?? []), ...(br?.buy ?? [])];
+        if (rawProviders.length === 0) {
+          return card;
+        }
 
         const availableProviders = uniqueProvidersSortedAlphabetically(
           rawProviders
@@ -373,13 +390,16 @@ async function attachProviderBadges(cards: TrendingCard[]): Promise<TrendingCard
         );
 
         const firstProvider = pickPreferredProvider(availableProviders);
-        if (!firstProvider) {
-          return card;
-        }
+        const selectedProviderRecord =
+          (firstProvider
+            ? rawProviders.find((provider) => normalizeDeepLinkProvider(provider.provider_name) === firstProvider)
+            : null) ?? rawProviders[0];
 
         return {
           ...card,
           linkProvider: firstProvider,
+          providerLogoUrl: toTmdbProviderLogoUrl(selectedProviderRecord?.logo_path),
+          providerLogoAlt: selectedProviderRecord?.provider_name ?? firstProvider ?? null,
         };
       } catch {
         return card;
@@ -674,15 +694,13 @@ export default async function HomePage() {
                   title={`Abrir em ${item.linkProvider ?? "streaming"}`}
                 >
                   <img src={item.poster} alt={item.title} className="poster-image" loading="lazy" />
-                  {item.linkProvider ? (
-                    <div className="absolute right-2 top-2 z-[2] inline-flex items-center rounded-full border border-[#33517f] bg-[#08162b]/84 px-2 py-1 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
-                      <img
-                        src={STREAMING_PROVIDER_LOGOS[item.linkProvider].src}
-                        alt={`Logo ${STREAMING_PROVIDER_LOGOS[item.linkProvider].alt}`}
-                        className="h-3.5 w-auto max-w-[54px] object-contain"
-                        loading="lazy"
-                      />
-                    </div>
+                  {item.providerLogoUrl || item.linkProvider ? (
+                    <img
+                      src={item.providerLogoUrl ?? STREAMING_PROVIDER_LOGOS[item.linkProvider as DeepLinkProvider].src}
+                      alt={item.providerLogoAlt ? `Logo ${item.providerLogoAlt}` : `Logo ${STREAMING_PROVIDER_LOGOS[item.linkProvider as DeepLinkProvider].alt}`}
+                      className="absolute right-2 top-2 z-[2] h-4 w-auto max-w-[62px] object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
+                      loading="lazy"
+                    />
                   ) : null}
                   <div className="poster-overlay">
                     <p className="poster-tag">{item.tag}</p>
@@ -724,15 +742,13 @@ export default async function HomePage() {
                   title={`Abrir em ${item.linkProvider ?? "streaming"}`}
                 >
                   <img src={item.poster} alt={item.title} className="poster-image" loading="lazy" />
-                  {item.linkProvider ? (
-                    <div className="absolute right-2 top-2 z-[2] inline-flex items-center rounded-full border border-[#33517f] bg-[#08162b]/84 px-2 py-1 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
-                      <img
-                        src={STREAMING_PROVIDER_LOGOS[item.linkProvider].src}
-                        alt={`Logo ${STREAMING_PROVIDER_LOGOS[item.linkProvider].alt}`}
-                        className="h-3.5 w-auto max-w-[54px] object-contain"
-                        loading="lazy"
-                      />
-                    </div>
+                  {item.providerLogoUrl || item.linkProvider ? (
+                    <img
+                      src={item.providerLogoUrl ?? STREAMING_PROVIDER_LOGOS[item.linkProvider as DeepLinkProvider].src}
+                      alt={item.providerLogoAlt ? `Logo ${item.providerLogoAlt}` : `Logo ${STREAMING_PROVIDER_LOGOS[item.linkProvider as DeepLinkProvider].alt}`}
+                      className="absolute right-2 top-2 z-[2] h-4 w-auto max-w-[62px] object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
+                      loading="lazy"
+                    />
                   ) : null}
                   <div className="poster-overlay">
                     <p className="poster-tag">{item.tag}</p>
@@ -774,15 +790,13 @@ export default async function HomePage() {
                   title={`Abrir em ${item.linkProvider ?? "streaming"}`}
                 >
                   <img src={item.poster} alt={item.title} className="poster-image" loading="lazy" />
-                  {item.linkProvider ? (
-                    <div className="absolute right-2 top-2 z-[2] inline-flex items-center rounded-full border border-[#33517f] bg-[#08162b]/84 px-2 py-1 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
-                      <img
-                        src={STREAMING_PROVIDER_LOGOS[item.linkProvider].src}
-                        alt={`Logo ${STREAMING_PROVIDER_LOGOS[item.linkProvider].alt}`}
-                        className="h-3.5 w-auto max-w-[54px] object-contain"
-                        loading="lazy"
-                      />
-                    </div>
+                  {item.providerLogoUrl || item.linkProvider ? (
+                    <img
+                      src={item.providerLogoUrl ?? STREAMING_PROVIDER_LOGOS[item.linkProvider as DeepLinkProvider].src}
+                      alt={item.providerLogoAlt ? `Logo ${item.providerLogoAlt}` : `Logo ${STREAMING_PROVIDER_LOGOS[item.linkProvider as DeepLinkProvider].alt}`}
+                      className="absolute right-2 top-2 z-[2] h-4 w-auto max-w-[62px] object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
+                      loading="lazy"
+                    />
                   ) : null}
                   <div className="poster-overlay">
                     <p className="poster-tag">{item.tag}</p>
