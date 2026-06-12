@@ -121,14 +121,19 @@ export function NavBar() {
 
   const menuLinks = (() => {
     if (!isAuthenticated) {
-      // Unauthenticated: no nav links (Assinatura + Entrar shown separately in dropdown)
+      // Unauthenticated: no nav links
       return [];
     }
     if (!hasActivePlan) {
-      // Logged in but no plan: only Busca
+      // Logged in but no plan: no access to any feature
+      return [];
+    }
+    // Has active plan
+    if (userPlan === "basico") {
+      // Basico: only Busca Inteligente
       return links.filter((l) => l.key === "search");
     }
-    // Has active plan: full access
+    // Premium: full access
     return [...links.filter((l) => l.key !== "home"), ...protectedLinks];
   })();
 
