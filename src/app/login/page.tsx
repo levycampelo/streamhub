@@ -11,11 +11,11 @@ type OAuthProviders = {
 };
 
 function sanitizeCallbackUrl(raw: string | null): string {
-  if (!raw) return "/watchlist";
+  if (!raw) return "/";
 
   const normalized = raw.trim();
   if (!normalized.startsWith("/") || normalized.startsWith("//")) {
-    return "/watchlist";
+    return "/";
   }
 
   return normalized;

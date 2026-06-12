@@ -96,7 +96,7 @@ export const authOptions: NextAuthOptions = {
         return url;
       }
 
-      return `${baseUrl}/watchlist`;
+      return `${baseUrl}/`;
     },
   },
 };
