@@ -266,6 +266,22 @@ function uniqueProvidersSortedAlphabetically(values: DeepLinkProvider[]): DeepLi
   return [...new Set(values)].sort((a, b) => a.localeCompare(b, "pt-BR"));
 }
 
+const PROVIDER_PRIORITY: DeepLinkProvider[] = ["Disney+", "Prime Video", "Netflix", "Max"];
+
+function pickPreferredProvider(availableProviders: DeepLinkProvider[]): DeepLinkProvider | null {
+  if (availableProviders.length === 0) {
+    return null;
+  }
+
+  for (const preferred of PROVIDER_PRIORITY) {
+    if (availableProviders.includes(preferred)) {
+      return preferred;
+    }
+  }
+
+  return availableProviders[0] ?? null;
+}
+
 function buildProviderSearchUrl(provider: DeepLinkProvider, title: string): string {
   const query = encodeURIComponent(title.trim());
 
@@ -315,7 +331,10 @@ async function attachDeepLinksForSubscriptions(
           return card;
         }
 
-        const selectedProvider = uniqueProvidersSortedAlphabetically(matchingProviders)[0];
+        const selectedProvider = pickPreferredProvider(uniqueProvidersSortedAlphabetically(matchingProviders));
+        if (!selectedProvider) {
+          return card;
+        }
         const universalProviderUrl = buildProviderSearchUrl(selectedProvider, card.title);
 
         return {
@@ -353,7 +372,7 @@ async function attachProviderBadges(cards: TrendingCard[]): Promise<TrendingCard
             .filter((provider): provider is DeepLinkProvider => provider !== null)
         );
 
-        const firstProvider = availableProviders[0];
+        const firstProvider = pickPreferredProvider(availableProviders);
         if (!firstProvider) {
           return card;
         }

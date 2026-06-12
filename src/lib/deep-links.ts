@@ -27,9 +27,16 @@ export function normalizeProviderName(name: string | null): DeepLinkProvider | n
   const normalized = name.trim().toLowerCase();
 
   if (normalized.includes("netflix")) return "Netflix";
-  if (normalized.includes("disney")) return "Disney+";
+  if (normalized.includes("disney") || normalized.includes("disney plus") || normalized.includes("disney+")) return "Disney+";
   if (normalized.includes("max") || normalized.includes("hbo")) return "Max";
-  if (normalized.includes("prime")) return "Prime Video";
+  if (
+    normalized.includes("prime") ||
+    normalized.includes("amazon") ||
+    normalized.includes("prime video") ||
+    normalized.includes("primevideo")
+  ) {
+    return "Prime Video";
+  }
 
   return null;
 }
