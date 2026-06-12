@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "smoke:auth": "node scripts/smoke-auth.mjs",
-    "sync:streaming-news": "node scripts/sync-streaming-news.mjs"
+    "sync:streaming-news": "node scripts/sync-streaming-news.mjs",
+    "plan:set": "node scripts/set-user-plan.mjs"
   },
   "keywords": [],
   "author": "",
