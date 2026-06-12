@@ -19,8 +19,9 @@ const plans: Plan[] = [
     price: "R$ 4,90",
     checkoutUrl: standardCheckout,
     features: [
-      "Análise das suas assinaturas",
+      "Controle Financeiro dos seus streaming",
       "Watchlist ilimitada",
+      "Busca Inteligente",
     ],
   },
   {
@@ -31,8 +32,7 @@ const plans: Plan[] = [
     highlight: true,
     features: [
       "Alertas de entrada e saída de catálogo",
-      "Análise das suas assinaturas",
-      "Watchlist ilimitada",
+      "Todas as Vantagens do Plano Básico",
       "IA Concierge",
       "Suporte prioritário",
     ],
