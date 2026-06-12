@@ -141,22 +141,10 @@ export function NavBar() {
           </Link>
 
           <div className="relative flex items-center gap-1.5">
-            <Link
-              href="/assinatura"
-              className={
-                "hidden md:inline-flex md:h-[32px] md:min-w-[92px] md:items-center md:justify-center md:rounded-[8px] md:border md:px-3 md:text-[12px] md:font-semibold md:tracking-[0.01em] md:text-white md:transition " +
-                (pathname === "/assinatura"
-                  ? "border-[#ff6b61] bg-[#d93d35] shadow-[0_8px_22px_rgba(217,61,53,0.3)]"
-                  : "border-[#ff6b61] bg-[#e04a42] hover:bg-[#ef5a52] hover:shadow-[0_8px_22px_rgba(224,74,66,0.28)]")
-              }
-            >
-              Assinatura
-            </Link>
-
             <button
               type="button"
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="inline-flex h-[24px] w-auto items-center justify-center rounded-[7px] border border-[#2a3f63] bg-[#0c1628] px-2 text-[10px] leading-none font-semibold tracking-[0.01em] text-[#d7e5ff] transition hover:border-[#3e5f93] hover:bg-[#101d33] hover:text-[#f2f7ff] sm:h-[26px] sm:text-[11px] md:h-[32px] md:min-w-[72px] md:rounded-[8px] md:px-3 md:text-[12px]"
+              className="inline-flex h-[24px] min-w-[52px] items-center justify-center rounded-[7px] border border-[#2a3f63] bg-[#0c1628] px-2 text-[10px] leading-none font-semibold tracking-[0.01em] text-[#d7e5ff] transition hover:border-[#3e5f93] hover:bg-[#101d33] hover:text-[#f2f7ff] sm:h-[26px] sm:min-w-[58px] sm:text-[11px] md:h-[28px] md:min-w-[64px] md:text-[11px]"
               aria-expanded={menuOpen}
               aria-label="Abrir menu de navegacao"
             >
@@ -169,7 +157,7 @@ export function NavBar() {
                   <Link
                     href="/assinatura"
                     className={
-                      "inline-flex h-[24px] w-full items-center justify-center rounded-[7px] border px-2 text-[10px] leading-none font-semibold tracking-[0.01em] text-white transition sm:h-[26px] sm:text-[11px] md:hidden " +
+                      "inline-flex h-[24px] w-full items-center justify-center rounded-[7px] border px-2 text-[10px] leading-none font-semibold tracking-[0.01em] text-white transition sm:h-[26px] sm:text-[11px] md:h-[28px] md:text-[11px] " +
                       (pathname === "/assinatura"
                         ? "border-[#ff6b61] bg-[#d93d35]"
                         : "border-[#ff6b61] bg-[#e04a42] hover:bg-[#ef5a52]")
