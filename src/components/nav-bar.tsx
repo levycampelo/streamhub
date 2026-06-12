@@ -144,7 +144,7 @@ export function NavBar() {
             <Link
               href="/assinatura"
               className={
-                "inline-flex !h-[24px] !w-auto items-center justify-center rounded-[7px] border !px-2 text-[10px] !leading-none font-semibold tracking-[0.01em] text-white transition sm:!h-[26px] sm:text-[11px] md:!h-[28px] md:text-[11px] " +
+                "hidden md:inline-flex md:h-[32px] md:min-w-[92px] md:items-center md:justify-center md:rounded-[8px] md:border md:px-3 md:text-[12px] md:font-semibold md:tracking-[0.01em] md:text-white md:transition " +
                 (pathname === "/assinatura"
                   ? "border-[#ff6b61] bg-[#d93d35] shadow-[0_8px_22px_rgba(217,61,53,0.3)]"
                   : "border-[#ff6b61] bg-[#e04a42] hover:bg-[#ef5a52] hover:shadow-[0_8px_22px_rgba(224,74,66,0.28)]")
@@ -156,7 +156,7 @@ export function NavBar() {
             <button
               type="button"
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="inline-flex !h-[24px] !w-auto items-center justify-center rounded-[7px] border border-[#2a3f63] bg-[#0c1628] !px-2 text-[10px] !leading-none font-semibold tracking-[0.01em] text-[#d7e5ff] transition hover:border-[#3e5f93] hover:bg-[#101d33] hover:text-[#f2f7ff] sm:!h-[26px] sm:text-[11px] md:!h-[28px] md:text-[11px]"
+              className="inline-flex h-[24px] w-auto items-center justify-center rounded-[7px] border border-[#2a3f63] bg-[#0c1628] px-2 text-[10px] leading-none font-semibold tracking-[0.01em] text-[#d7e5ff] transition hover:border-[#3e5f93] hover:bg-[#101d33] hover:text-[#f2f7ff] sm:h-[26px] sm:text-[11px] md:h-[32px] md:min-w-[72px] md:rounded-[8px] md:px-3 md:text-[12px]"
               aria-expanded={menuOpen}
               aria-label="Abrir menu de navegacao"
             >
@@ -164,14 +164,26 @@ export function NavBar() {
             </button>
 
             {menuOpen ? (
-              <div className="absolute right-0 top-full z-50 mt-1.5 w-[160px] max-w-[calc(100vw-0.75rem)] rounded-[10px] border border-[#2a4066] bg-[linear-gradient(180deg,rgba(12,23,40,0.98)_0%,rgba(9,18,33,0.98)_100%)] p-1 shadow-[0_14px_30px_rgba(0,0,0,0.5)] backdrop-blur-md sm:w-[172px] md:w-[184px]">
+              <div className="absolute right-0 top-full z-50 mt-1.5 w-[168px] max-w-[calc(100vw-0.75rem)] rounded-[10px] border border-[#2a4066] bg-[linear-gradient(180deg,rgba(12,23,40,0.98)_0%,rgba(9,18,33,0.98)_100%)] p-1 shadow-[0_14px_30px_rgba(0,0,0,0.5)] backdrop-blur-md sm:w-[176px] md:w-[184px]">
                 <div className="flex flex-col gap-0.5">
+                  <Link
+                    href="/assinatura"
+                    className={
+                      "inline-flex h-[24px] w-full items-center justify-center rounded-[7px] border px-2 text-[10px] leading-none font-semibold tracking-[0.01em] text-white transition sm:h-[26px] sm:text-[11px] md:hidden " +
+                      (pathname === "/assinatura"
+                        ? "border-[#ff6b61] bg-[#d93d35]"
+                        : "border-[#ff6b61] bg-[#e04a42] hover:bg-[#ef5a52]")
+                    }
+                  >
+                    Assinatura
+                  </Link>
+
                   {menuLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className={
-                        "inline-flex !h-[24px] w-full items-center justify-start rounded-[7px] border !px-2 text-[10px] !leading-none font-medium tracking-[0.01em] transition sm:!h-[26px] sm:text-[11px] md:!h-[28px] md:text-[11px] " +
+                        "inline-flex h-[24px] w-full items-center justify-start rounded-[7px] border px-2 text-[10px] leading-none font-medium tracking-[0.01em] transition sm:h-[26px] sm:text-[11px] md:h-[28px] md:text-[11px] " +
                         (pathname === link.href
                           ? "border-[#4b87e8] bg-[#17315b] text-[#f3f8ff]"
                           : "border-[#263d62] bg-[#0e1a2e] text-[#b8c9e6] hover:border-[#3f6297] hover:bg-[#12233d] hover:text-[#edf4ff]")
@@ -190,7 +202,7 @@ export function NavBar() {
                         {session?.user?.name ?? session?.user?.email ?? t.connected}
                       </span>
                       <button
-                        className="inline-flex !h-[24px] w-full items-center justify-center rounded-[7px] border border-[#365989] bg-[#132742] px-2 text-[10px] !leading-none font-semibold text-[#edf4ff] transition hover:border-[#4a75ad] hover:bg-[#183058] sm:!h-[26px] sm:text-[11px] md:!h-[28px] md:text-[11px]"
+                        className="inline-flex h-[24px] w-full items-center justify-center rounded-[7px] border border-[#365989] bg-[#132742] px-2 text-[10px] leading-none font-semibold text-[#edf4ff] transition hover:border-[#4a75ad] hover:bg-[#183058] sm:h-[26px] sm:text-[11px] md:h-[28px] md:text-[11px]"
                         onClick={handleLogout}
                       >
                         {t.logout}
@@ -200,7 +212,7 @@ export function NavBar() {
                     <Link
                       href="/login"
                       className={
-                        "inline-flex !h-[24px] w-full items-center justify-center rounded-[7px] border px-2 text-[10px] !leading-none font-semibold tracking-[0.01em] transition sm:!h-[26px] sm:text-[11px] md:!h-[28px] md:text-[11px] " +
+                        "inline-flex h-[24px] w-full items-center justify-center rounded-[7px] border px-2 text-[10px] leading-none font-semibold tracking-[0.01em] transition sm:h-[26px] sm:text-[11px] md:h-[28px] md:text-[11px] " +
                         (pathname === "/login"
                           ? "border-[#4b87e8] bg-[#17315b] text-[#f3f8ff]"
                           : "border-[#263d62] bg-[#0e1a2e] text-[#b8c9e6] hover:border-[#3f6297] hover:bg-[#12233d] hover:text-[#edf4ff]")
