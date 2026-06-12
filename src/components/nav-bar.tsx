@@ -121,8 +121,8 @@ export function NavBar() {
 
   const menuLinks = (() => {
     if (!isAuthenticated) {
-      // Unauthenticated: only search (no news)
-      return links.filter((l) => l.key !== "home" && l.key !== "news");
+      // Unauthenticated: no nav links (Assinatura + Entrar shown separately in dropdown)
+      return [];
     }
     if (!hasActivePlan) {
       // Logged in but no plan: only Busca
