@@ -331,6 +331,44 @@ async function attachDeepLinksForSubscriptions(
   );
 }
 
+async function attachProviderBadges(cards: TrendingCard[]): Promise<TrendingCard[]> {
+  return Promise.all(
+    cards.map(async (card) => {
+      if (card.linkProvider) {
+        return card;
+      }
+
+      try {
+        const providerData = await fetchTmdbData<TmdbProvidersResponse>(`/${card.mediaType}/${card.id}/watch/providers`, {});
+        const br = providerData.results?.BR;
+        const rawProviders = [
+          ...(br?.flatrate ?? []),
+          ...(br?.rent ?? []),
+          ...(br?.buy ?? []),
+        ];
+
+        const availableProviders = uniqueProvidersSortedAlphabetically(
+          rawProviders
+            .map((provider) => normalizeDeepLinkProvider(provider.provider_name))
+            .filter((provider): provider is DeepLinkProvider => provider !== null)
+        );
+
+        const firstProvider = availableProviders[0];
+        if (!firstProvider) {
+          return card;
+        }
+
+        return {
+          ...card,
+          linkProvider: firstProvider,
+        };
+      } catch {
+        return card;
+      }
+    })
+  );
+}
+
 const streamingServices = [
   {
     name: "Netflix",
@@ -472,6 +510,12 @@ export default async function HomePage() {
       attachDeepLinksForSubscriptions(popularWorldwide, subscribedDeepLinkProviders),
     ]);
   }
+
+  [trendingMovies, trendingSeries, popularWorldwide] = await Promise.all([
+    attachProviderBadges(trendingMovies),
+    attachProviderBadges(trendingSeries),
+    attachProviderBadges(popularWorldwide),
+  ]);
 
   const heroPosters = [...trendingMovies, ...trendingSeries, ...popularWorldwide]
     .filter((item) => item.poster)
