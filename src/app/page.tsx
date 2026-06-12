@@ -51,6 +51,22 @@ type ProviderRecord = {
   logo_path?: string | null;
 };
 
+type TmdbStudioRecord = {
+  name: string;
+  logo_path?: string | null;
+};
+
+type TmdbMediaDetailsResponse = {
+  networks?: TmdbStudioRecord[];
+  production_companies?: TmdbStudioRecord[];
+};
+
+type ProviderInference = {
+  provider: DeepLinkProvider | null;
+  logoUrl: string | null;
+  logoAlt: string | null;
+};
+
 type TmdbCountryProviders = {
   flatrate?: ProviderRecord[];
   free?: ProviderRecord[];
@@ -201,6 +217,19 @@ function toTmdbProviderLogoUrl(logoPath: string | null | undefined): string | nu
 }
 
 const PROVIDER_REGION_PRIORITY = ["BR", "US", "GB", "CA", "AU"] as const;
+const providerRecordsCache = new Map<string, Promise<ProviderRecord[]>>();
+const providerInferenceCache = new Map<string, Promise<ProviderInference>>();
+
+function cardCacheKey(card: TrendingCard): string {
+  return `${card.mediaType}:${card.id}`;
+}
+
+function trimCacheIfNeeded(cache: Map<string, unknown>, max = 1200): void {
+  if (cache.size <= max) {
+    return;
+  }
+  cache.clear();
+}
 
 function listProvidersFromRegion(region?: TmdbCountryProviders): ProviderRecord[] {
   if (!region) {
@@ -237,6 +266,76 @@ function pickProviderRecords(providerData: TmdbProvidersResponse): ProviderRecor
   }
 
   return [];
+}
+
+async function inferProviderFromMediaDetails(card: TrendingCard): Promise<{
+  provider: DeepLinkProvider | null;
+  logoUrl: string | null;
+  logoAlt: string | null;
+}> {
+  try {
+    const details = await fetchTmdbData<TmdbMediaDetailsResponse>(`/${card.mediaType}/${card.id}`, {
+      language: "pt-BR",
+    });
+
+    const candidates: TmdbStudioRecord[] = [
+      ...(details.networks ?? []),
+      ...(details.production_companies ?? []),
+    ];
+
+    for (const studio of candidates) {
+      const normalized = normalizeDeepLinkProvider(studio.name);
+      if (normalized) {
+        return {
+          provider: normalized,
+          logoUrl: toTmdbProviderLogoUrl(studio.logo_path),
+          logoAlt: studio.name,
+        };
+      }
+    }
+
+    return {
+      provider: null,
+      logoUrl: null,
+      logoAlt: null,
+    };
+  } catch {
+    return {
+      provider: null,
+      logoUrl: null,
+      logoAlt: null,
+    };
+  }
+}
+
+async function fetchProviderRecordsCached(card: TrendingCard): Promise<ProviderRecord[]> {
+  const key = cardCacheKey(card);
+  const cached = providerRecordsCache.get(key);
+  if (cached) {
+    return cached;
+  }
+
+  const request = (async () => {
+    const providerData = await fetchTmdbData<TmdbProvidersResponse>(`/${card.mediaType}/${card.id}/watch/providers`, {});
+    return pickProviderRecords(providerData);
+  })();
+
+  providerRecordsCache.set(key, request);
+  trimCacheIfNeeded(providerRecordsCache);
+  return request;
+}
+
+async function inferProviderFromMediaDetailsCached(card: TrendingCard): Promise<ProviderInference> {
+  const key = cardCacheKey(card);
+  const cached = providerInferenceCache.get(key);
+  if (cached) {
+    return cached;
+  }
+
+  const request = inferProviderFromMediaDetails(card);
+  providerInferenceCache.set(key, request);
+  trimCacheIfNeeded(providerInferenceCache);
+  return request;
 }
 
 function interleaveCards(first: TrendingCard[], second: TrendingCard[], maxItems = 15): TrendingCard[] {
@@ -365,8 +464,7 @@ async function attachDeepLinksForSubscriptions(
   return Promise.all(
     cards.map(async (card) => {
       try {
-        const providerData = await fetchTmdbData<TmdbProvidersResponse>(`/${card.mediaType}/${card.id}/watch/providers`, {});
-        const rawProviders = pickProviderRecords(providerData);
+        const rawProviders = await fetchProviderRecordsCached(card);
 
         const availableProviders = uniqueProvidersSortedAlphabetically(
           rawProviders
@@ -412,10 +510,19 @@ async function attachProviderBadges(cards: TrendingCard[]): Promise<TrendingCard
       }
 
       try {
-        const providerData = await fetchTmdbData<TmdbProvidersResponse>(`/${card.mediaType}/${card.id}/watch/providers`, {});
-        const rawProviders = pickProviderRecords(providerData);
+        const rawProviders = await fetchProviderRecordsCached(card);
         if (rawProviders.length === 0) {
-          return card;
+          const inferred = await inferProviderFromMediaDetailsCached(card);
+          if (!inferred.provider && !inferred.logoUrl) {
+            return card;
+          }
+
+          return {
+            ...card,
+            linkProvider: inferred.provider,
+            providerLogoUrl: inferred.logoUrl,
+            providerLogoAlt: inferred.logoAlt,
+          };
         }
 
         const availableProviders = uniqueProvidersSortedAlphabetically(
