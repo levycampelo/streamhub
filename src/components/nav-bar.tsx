@@ -144,7 +144,7 @@ export function NavBar() {
             <Link
               href="/assinatura"
               className={
-                "inline-flex h-[34px] min-w-[90px] items-center justify-center rounded-[10px] border px-2.5 text-[13px] font-semibold tracking-[0.01em] text-white transition sm:h-10 sm:min-w-[110px] sm:rounded-xl sm:px-4 sm:text-sm " +
+                "inline-flex h-[30px] min-w-[82px] items-center justify-center rounded-[9px] border px-2 text-[12px] font-semibold tracking-[0.01em] text-white transition sm:h-10 sm:min-w-[110px] sm:rounded-xl sm:px-4 sm:text-sm " +
                 (pathname === "/assinatura"
                   ? "border-[#ff6b61] bg-[#d93d35] shadow-[0_8px_22px_rgba(217,61,53,0.3)]"
                   : "border-[#ff6b61] bg-[#e04a42] hover:bg-[#ef5a52] hover:shadow-[0_8px_22px_rgba(224,74,66,0.28)]")
@@ -156,7 +156,7 @@ export function NavBar() {
             <button
               type="button"
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="inline-flex h-[34px] min-w-[76px] items-center justify-center rounded-[10px] border border-[#2a3f63] bg-[#0c1628] px-2.5 text-[13px] font-semibold tracking-[0.01em] text-[#d7e5ff] transition hover:border-[#3e5f93] hover:bg-[#101d33] hover:text-[#f2f7ff] sm:h-10 sm:min-w-[96px] sm:rounded-xl sm:px-4 sm:text-sm"
+              className="inline-flex h-[30px] min-w-[66px] items-center justify-center rounded-[9px] border border-[#2a3f63] bg-[#0c1628] px-2 text-[12px] font-semibold tracking-[0.01em] text-[#d7e5ff] transition hover:border-[#3e5f93] hover:bg-[#101d33] hover:text-[#f2f7ff] sm:h-10 sm:min-w-[96px] sm:rounded-xl sm:px-4 sm:text-sm"
               aria-expanded={menuOpen}
               aria-label="Abrir menu de navegacao"
             >
@@ -164,20 +164,20 @@ export function NavBar() {
             </button>
 
             {menuOpen ? (
-              <div className="absolute right-0 top-full z-50 mt-1.5 w-[210px] max-w-[calc(100vw-0.75rem)] rounded-[12px] border border-[#2a4066] bg-[linear-gradient(180deg,rgba(12,23,40,0.98)_0%,rgba(9,18,33,0.98)_100%)] p-1 shadow-[0_14px_30px_rgba(0,0,0,0.5)] backdrop-blur-md sm:mt-2 sm:w-[236px] sm:rounded-2xl sm:p-2">
-                <div className="flex flex-col gap-1">
+              <div className="absolute right-0 top-full z-50 mt-1.5 w-[194px] max-w-[calc(100vw-0.75rem)] rounded-[11px] border border-[#2a4066] bg-[linear-gradient(180deg,rgba(12,23,40,0.98)_0%,rgba(9,18,33,0.98)_100%)] p-1 shadow-[0_14px_30px_rgba(0,0,0,0.5)] backdrop-blur-md sm:mt-2 sm:w-[236px] sm:rounded-2xl sm:p-2">
+                <div className="flex flex-col gap-0.5">
                   {menuLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className={
-                        "inline-flex h-[34px] w-full items-center justify-start rounded-[10px] border px-2.5 text-[13px] font-medium tracking-[0.01em] transition sm:h-10 sm:rounded-xl sm:px-4 sm:text-sm " +
+                        "inline-flex h-[30px] w-full items-center justify-start rounded-[9px] border px-2 text-[12px] font-medium tracking-[0.01em] transition sm:h-10 sm:rounded-xl sm:px-4 sm:text-sm " +
                         (pathname === link.href
                           ? "border-[#4b87e8] bg-[#17315b] text-[#f3f8ff]"
                           : "border-[#263d62] bg-[#0e1a2e] text-[#b8c9e6] hover:border-[#3f6297] hover:bg-[#12233d] hover:text-[#edf4ff]")
                       }
                     >
-                      <span className="mr-2 h-1.5 w-1.5 rounded-full bg-current opacity-70" aria-hidden />
+                      <span className="mr-1.5 h-1 w-1 rounded-full bg-current opacity-70" aria-hidden />
                       <span className="truncate">{t[link.key]}</span>
                     </Link>
                   ))}
@@ -186,11 +186,11 @@ export function NavBar() {
                 <div className="mt-1 border-t border-[#2a4066] pt-1 sm:mt-2 sm:pt-2">
                   {isAuthenticated ? (
                     <div className="space-y-1 sm:space-y-2">
-                      <span className="block truncate rounded-[10px] border border-[#2a4066] bg-[#0f1d33] px-2.5 py-1.5 text-[12px] text-[#93a9cc] sm:rounded-xl sm:py-2 sm:text-sm">
+                      <span className="block truncate rounded-[9px] border border-[#2a4066] bg-[#0f1d33] px-2 py-1 text-[11px] text-[#93a9cc] sm:rounded-xl sm:py-2 sm:text-sm">
                         {session?.user?.name ?? session?.user?.email ?? t.connected}
                       </span>
                       <button
-                        className="inline-flex h-[34px] w-full items-center justify-center rounded-[10px] border border-[#365989] bg-[#132742] px-2.5 text-[13px] font-semibold text-[#edf4ff] transition hover:border-[#4a75ad] hover:bg-[#183058] sm:h-10 sm:rounded-xl sm:px-4 sm:text-sm"
+                        className="inline-flex h-[30px] w-full items-center justify-center rounded-[9px] border border-[#365989] bg-[#132742] px-2 text-[12px] font-semibold text-[#edf4ff] transition hover:border-[#4a75ad] hover:bg-[#183058] sm:h-10 sm:rounded-xl sm:px-4 sm:text-sm"
                         onClick={handleLogout}
                       >
                         {t.logout}
@@ -200,7 +200,7 @@ export function NavBar() {
                     <Link
                       href="/login"
                       className={
-                        "inline-flex h-[34px] w-full items-center justify-center rounded-[10px] border px-2.5 text-[13px] font-semibold tracking-[0.01em] transition sm:h-10 sm:rounded-xl sm:px-4 sm:text-sm " +
+                        "inline-flex h-[30px] w-full items-center justify-center rounded-[9px] border px-2 text-[12px] font-semibold tracking-[0.01em] transition sm:h-10 sm:rounded-xl sm:px-4 sm:text-sm " +
                         (pathname === "/login"
                           ? "border-[#4b87e8] bg-[#17315b] text-[#f3f8ff]"
                           : "border-[#263d62] bg-[#0e1a2e] text-[#b8c9e6] hover:border-[#3f6297] hover:bg-[#12233d] hover:text-[#edf4ff]")
