@@ -1,6 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { upsertAuthenticatedUser } from "@/lib/user-profile-store";
+import { getUserPlan, upsertAuthenticatedUser } from "@/lib/user-profile-store";
 
 async function persistGoogleUser(params: {
   email?: string | null;
@@ -86,6 +86,19 @@ export const authOptions: NextAuthOptions = {
       }
 
       return true;
+    },
+    async jwt({ token, user, trigger }) {
+      // On first sign-in, fetch the plan from Supabase
+      if ((trigger === "signIn" || trigger === "signUp") && user?.email) {
+        token.plan = await getUserPlan(user.email);
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        (session.user as { plan?: string | null }).plan = (token.plan as string | null) ?? null;
+      }
+      return session;
     },
     async redirect({ url, baseUrl }) {
       if (url.startsWith("/")) {

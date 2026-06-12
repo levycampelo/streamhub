@@ -116,9 +116,21 @@ export function NavBar() {
     await signOut({ callbackUrl: "/" });
   }
 
-  const menuLinks = isAuthenticated
-    ? [...links.filter((link) => link.key !== "home"), ...protectedLinks]
-    : links.filter((link) => link.key !== "home" && link.key !== "news");
+  const userPlan = (session?.user as { plan?: string | null } | undefined)?.plan ?? null;
+  const hasActivePlan = isAuthenticated && Boolean(userPlan);
+
+  const menuLinks = (() => {
+    if (!isAuthenticated) {
+      // Unauthenticated: only search (no news)
+      return links.filter((l) => l.key !== "home" && l.key !== "news");
+    }
+    if (!hasActivePlan) {
+      // Logged in but no plan: only Busca
+      return links.filter((l) => l.key === "search");
+    }
+    // Has active plan: full access
+    return [...links.filter((l) => l.key !== "home"), ...protectedLinks];
+  })();
 
   const t = navLabels[locale];
 

@@ -31,6 +31,20 @@ async function supabaseAdminRequest(path: string, init: RequestInit): Promise<Re
   });
 }
 
+export async function getUserPlan(email: string): Promise<string | null> {
+  try {
+    const response = await supabaseAdminRequest(
+      `app_users?email=eq.${encodeURIComponent(email)}&select=plan&limit=1`,
+      { method: "GET" },
+    );
+    if (!response.ok) return null;
+    const rows = (await response.json()) as Array<{ plan?: string | null }>;
+    return rows[0]?.plan ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export async function upsertAuthenticatedUser(payload: AuthenticatedUserPayload): Promise<void> {
   const now = new Date().toISOString();
 
