@@ -71,6 +71,25 @@ type TrendingCard = {
   linkProvider: DeepLinkProvider | null;
 };
 
+const STREAMING_PROVIDER_LOGOS: Record<DeepLinkProvider, { src: string; alt: string }> = {
+  Netflix: {
+    src: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+    alt: "Netflix",
+  },
+  "Disney+": {
+    src: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg",
+    alt: "Disney+",
+  },
+  "Prime Video": {
+    src: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
+    alt: "Prime Video",
+  },
+  Max: {
+    src: "/logos/max.svg",
+    alt: "Max",
+  },
+};
+
 const TMDB_PROVIDER_IDS: Record<string, number> = {
   netflix: 8,
   "prime video": 119,
@@ -592,6 +611,16 @@ export default async function HomePage() {
                   title={`Abrir em ${item.linkProvider ?? "streaming"}`}
                 >
                   <img src={item.poster} alt={item.title} className="poster-image" loading="lazy" />
+                  {item.linkProvider ? (
+                    <div className="absolute right-2 top-2 z-[2] inline-flex items-center rounded-full border border-[#33517f] bg-[#08162b]/84 px-2 py-1 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
+                      <img
+                        src={STREAMING_PROVIDER_LOGOS[item.linkProvider].src}
+                        alt={`Logo ${STREAMING_PROVIDER_LOGOS[item.linkProvider].alt}`}
+                        className="h-3.5 w-auto max-w-[54px] object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                  ) : null}
                   <div className="poster-overlay">
                     <p className="poster-tag">{item.tag}</p>
                     <h4>{item.title}</h4>
@@ -632,6 +661,16 @@ export default async function HomePage() {
                   title={`Abrir em ${item.linkProvider ?? "streaming"}`}
                 >
                   <img src={item.poster} alt={item.title} className="poster-image" loading="lazy" />
+                  {item.linkProvider ? (
+                    <div className="absolute right-2 top-2 z-[2] inline-flex items-center rounded-full border border-[#33517f] bg-[#08162b]/84 px-2 py-1 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
+                      <img
+                        src={STREAMING_PROVIDER_LOGOS[item.linkProvider].src}
+                        alt={`Logo ${STREAMING_PROVIDER_LOGOS[item.linkProvider].alt}`}
+                        className="h-3.5 w-auto max-w-[54px] object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                  ) : null}
                   <div className="poster-overlay">
                     <p className="poster-tag">{item.tag}</p>
                     <h4>{item.title}</h4>
@@ -672,6 +711,16 @@ export default async function HomePage() {
                   title={`Abrir em ${item.linkProvider ?? "streaming"}`}
                 >
                   <img src={item.poster} alt={item.title} className="poster-image" loading="lazy" />
+                  {item.linkProvider ? (
+                    <div className="absolute right-2 top-2 z-[2] inline-flex items-center rounded-full border border-[#33517f] bg-[#08162b]/84 px-2 py-1 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
+                      <img
+                        src={STREAMING_PROVIDER_LOGOS[item.linkProvider].src}
+                        alt={`Logo ${STREAMING_PROVIDER_LOGOS[item.linkProvider].alt}`}
+                        className="h-3.5 w-auto max-w-[54px] object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                  ) : null}
                   <div className="poster-overlay">
                     <p className="poster-tag">{item.tag}</p>
                     <h4>{item.title}</h4>
