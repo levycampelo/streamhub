@@ -152,7 +152,7 @@ export function NavBar() {
             </button>
 
             {menuOpen ? (
-              <div className="absolute right-0 top-full z-50 mt-1.5 w-[168px] max-w-[calc(100vw-0.75rem)] rounded-[10px] border border-[#2a4066] bg-[linear-gradient(180deg,rgba(12,23,40,0.98)_0%,rgba(9,18,33,0.98)_100%)] p-1 shadow-[0_14px_30px_rgba(0,0,0,0.5)] backdrop-blur-md sm:w-[176px] md:w-[184px]">
+              <div className="absolute right-0 top-full z-50 mt-1.5 w-auto min-w-[140px] max-w-[calc(100vw-0.75rem)] rounded-[10px] border border-[#2a4066] bg-[linear-gradient(180deg,rgba(12,23,40,0.98)_0%,rgba(9,18,33,0.98)_100%)] p-1 shadow-[0_14px_30px_rgba(0,0,0,0.5)] backdrop-blur-md">
                 <div className="flex flex-col gap-0.5">
                   <Link
                     href="/assinatura"
@@ -171,14 +171,13 @@ export function NavBar() {
                       key={link.href}
                       href={link.href}
                       className={
-                        "inline-flex h-[24px] w-full items-center justify-start rounded-[7px] border px-2 text-[10px] leading-none font-medium tracking-[0.01em] transition sm:h-[26px] sm:text-[11px] md:h-[28px] md:text-[11px] " +
+                        "inline-flex h-[24px] w-full items-center justify-center rounded-[7px] border px-2 text-[10px] leading-none font-medium tracking-[0.01em] transition sm:h-[26px] sm:text-[11px] md:h-[28px] md:text-[11px] " +
                         (pathname === link.href
                           ? "border-[#4b87e8] bg-[#17315b] text-[#f3f8ff]"
                           : "border-[#263d62] bg-[#0e1a2e] text-[#b8c9e6] hover:border-[#3f6297] hover:bg-[#12233d] hover:text-[#edf4ff]")
                       }
                     >
-                      <span className="mr-1.5 h-1 w-1 rounded-full bg-current opacity-70" aria-hidden />
-                      <span className="truncate">{t[link.key]}</span>
+                      {t[link.key]}
                     </Link>
                   ))}
                 </div>
