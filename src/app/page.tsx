@@ -51,14 +51,16 @@ type ProviderRecord = {
   logo_path?: string | null;
 };
 
+type TmdbCountryProviders = {
+  flatrate?: ProviderRecord[];
+  free?: ProviderRecord[];
+  ads?: ProviderRecord[];
+  rent?: ProviderRecord[];
+  buy?: ProviderRecord[];
+};
+
 type TmdbProvidersResponse = {
-  results?: {
-    BR?: {
-      flatrate?: ProviderRecord[];
-      rent?: ProviderRecord[];
-      buy?: ProviderRecord[];
-    };
-  };
+  results?: Record<string, TmdbCountryProviders>;
 };
 
 type TrendingCard = {
@@ -198,6 +200,45 @@ function toTmdbProviderLogoUrl(logoPath: string | null | undefined): string | nu
   return `https://image.tmdb.org/t/p/w154${logoPath}`;
 }
 
+const PROVIDER_REGION_PRIORITY = ["BR", "US", "GB", "CA", "AU"] as const;
+
+function listProvidersFromRegion(region?: TmdbCountryProviders): ProviderRecord[] {
+  if (!region) {
+    return [];
+  }
+
+  return [
+    ...(region.flatrate ?? []),
+    ...(region.free ?? []),
+    ...(region.ads ?? []),
+    ...(region.rent ?? []),
+    ...(region.buy ?? []),
+  ];
+}
+
+function pickProviderRecords(providerData: TmdbProvidersResponse): ProviderRecord[] {
+  const results = providerData.results;
+  if (!results) {
+    return [];
+  }
+
+  for (const region of PROVIDER_REGION_PRIORITY) {
+    const records = listProvidersFromRegion(results[region]);
+    if (records.length > 0) {
+      return records;
+    }
+  }
+
+  for (const regionData of Object.values(results)) {
+    const records = listProvidersFromRegion(regionData);
+    if (records.length > 0) {
+      return records;
+    }
+  }
+
+  return [];
+}
+
 function interleaveCards(first: TrendingCard[], second: TrendingCard[], maxItems = 15): TrendingCard[] {
   const merged: TrendingCard[] = [];
   const maxLength = Math.max(first.length, second.length);
@@ -325,12 +366,7 @@ async function attachDeepLinksForSubscriptions(
     cards.map(async (card) => {
       try {
         const providerData = await fetchTmdbData<TmdbProvidersResponse>(`/${card.mediaType}/${card.id}/watch/providers`, {});
-        const br = providerData.results?.BR;
-        const rawProviders = [
-          ...(br?.flatrate ?? []),
-          ...(br?.rent ?? []),
-          ...(br?.buy ?? []),
-        ];
+        const rawProviders = pickProviderRecords(providerData);
 
         const availableProviders = uniqueProvidersSortedAlphabetically(
           rawProviders
@@ -377,8 +413,7 @@ async function attachProviderBadges(cards: TrendingCard[]): Promise<TrendingCard
 
       try {
         const providerData = await fetchTmdbData<TmdbProvidersResponse>(`/${card.mediaType}/${card.id}/watch/providers`, {});
-        const br = providerData.results?.BR;
-        const rawProviders = [...(br?.flatrate ?? []), ...(br?.rent ?? []), ...(br?.buy ?? [])];
+        const rawProviders = pickProviderRecords(providerData);
         if (rawProviders.length === 0) {
           return card;
         }
