@@ -1,46 +1,1 @@
-import { getAuthenticatedUserId } from "@/lib/auth-user";
-import { notFound } from "next/navigation";
-
-// Simula��o de banco de dados
-async function getUserProfile(username: string) {
-  // Simulando que encontrou a Maria
-  if (username === "maria123") {
-    return {
-      name: "Maria Silva",
-      username: "maria123",
-      watchlist: [
-        { id: "1", title: "O Auto da Compadecida", type: "Filme" },
-        { id: "2", title: "Breaking Bad", type: "S�rie" }
-      ]
-    };
-  }
-  return null;
-}
-
-export default async function PerfilPublicoPage({ params }: { params: { username: string } }) {
-  const profile = await getUserProfile(params.username);
-
-  if (!profile) notFound();
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-8 max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">Perfil de {profile.name}</h1>
-        <p className="text-neutral-400 mb-8">@{profile.username}</p>
-        
-        <h2 className="text-xl font-semibold border-b border-neutral-800 pb-2 mb-4">
-          Watchlist P�blica
-        </h2>
-        
-        <ul className="space-y-3">
-          {profile.watchlist.map((item) => (
-            <li key={item.id} className="bg-neutral-800 p-4 rounded-lg flex justify-between items-center">
-              <span className="font-medium text-lg">{item.title}</span>
-              <span className="text-sm px-3 py-1 bg-neutral-700 rounded-full">{item.type}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
+浩潰瑲笠朠瑥畁桴湥楴慣整啤敳䥲⁤⁽牦浯∠⽀楬⽢畡桴甭敳≲਻浩潰瑲笠渠瑯潆湵⁤⁽牦浯∠敮瑸港癡杩瑡潩≮਻⼊ 楓畭慬⁯敤戠湡潣搠⁥慤潤ੳ獡湹⁣畦据楴湯朠瑥獕牥牐景汩⡥獵牥慮敭›瑳楲杮 ੻†⼯匠浩汵湡潤焠敵攠据湯牴畯愠䴠牡慩 椠⁦用敳湲浡⁥㴽‽洢牡慩㈱∳ ੻††敲畴湲笠 ††渠浡㩥∠慍楲⁡楓癬≡ਬ†††獵牥慮敭›洢牡慩㈱∳ਬ†††慷捴汨獩㩴嬠 †††笠椠㩤∠∱‬楴汴㩥∠⁏畁潴搠⁡潃灭摡捥摩≡‬祴数›䘢汩敭•ⱽ †††笠椠㩤∠∲‬楴汴㩥∠牂慥楫杮䈠摡Ⱒ琠灹㩥∠楲≥素 ††崠 †素਻†੽†敲畴湲渠汵㭬紊ਊ硥潰瑲搠晥畡瑬愠祳据映湵瑣潩⁮敐晲汩畐汢捩偯条⡥⁻慰慲獭素›⁻慰慲獭›⁻獵牥慮敭›瑳楲杮素素 ੻†潣獮⁴牰景汩⁥‽睡楡⁴敧啴敳偲潲楦敬瀨牡浡⹳獵牥慮敭㬩ਊ†晩⠠瀡潲楦敬 潮䙴畯摮⤨਻ 爠瑥牵⁮ਨ††搼癩挠慬獳慎敭∽潣瑮楡敮⁲硭愭瑵⁯硰㐭瀠⵹∸ਾ†††搼癩挠慬獳慎敭∽杢渭略牴污㤭〰戠牯敤⁲潢摲牥渭略牴污㠭〰爠畯摮摥砭⁬⵰‸慭⵸⵷砲⁬硭愭瑵≯ਾ††††格‱汣獡乳浡㵥琢硥⵴砳⁬潦瑮戭汯⁤扭㈭㸢敐晲汩搠⁥灻潲楦敬渮浡絥⼼ㅨਾ††††瀼挠慬獳慎敭∽整瑸渭略牴污㐭〰洠ⵢ∸䀾灻潲楦敬甮敳湲浡絥⼼㹰 †††ਠ††††格′汣獡乳浡㵥琢硥⵴汸映湯⵴敳業潢摬戠牯敤⵲⁢潢摲牥渭略牴污㠭〰瀠ⵢ′扭㐭㸢 ††††圠瑡档楬瑳倠拺楬慣 †††㰠栯㸲 †††ਠ††††甼⁬汣獡乳浡㵥猢慰散礭㌭㸢 ††††笠牰景汩⹥慷捴汨獩⹴慭⡰椨整⥭㴠‾ਨ††††††氼⁩敫㵹楻整⹭摩⁽汣獡乳浡㵥戢ⵧ敮瑵慲⵬〸‰⵰‴潲湵敤ⵤ杬映敬⁸番瑳晩⵹敢睴敥⁮瑩浥⵳散瑮牥㸢 ††††††㰠灳湡挠慬獳慎敭∽潦瑮洭摥畩⁭整瑸氭≧笾瑩浥琮瑩敬㱽猯慰㹮 ††††††㰠灳湡挠慬獳慎敭∽整瑸猭⁭硰㌭瀠⵹‱杢渭略牴污㜭〰爠畯摮摥昭汵≬笾瑩浥琮灹絥⼼灳湡ਾ††††††⼼楬ਾ†††††⤩੽††††⼼汵ਾ†††⼼楤㹶 †㰠搯癩ਾ†㬩紊਍
