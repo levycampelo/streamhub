@@ -1,7 +1,4 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function GET(req: Request) {
   // Verifica secret via Authorization header para proteger rotas cron no Vercel
@@ -16,17 +13,22 @@ export async function GET(req: Request) {
     // 2. Compara com os usuários que possuem Watchlist ativa com esses filmes
     // 3. Envia os alertas
 
-    const simulatedUserEmail = "teste@exemplo.com"; 
-    
-    // Dispara via Resend
-    /*
-    const { data, error } = await resend.emails.send({
-      from: "StreamHub <avisos@streamhub.com.br>",
-      to: [simulatedUserEmail],
-      subject: "🚨 O filme da sua Watchlist chegou na Netflix!",
-      html: "<p>O filme <strong>A Substância</strong> que estava na sua Watchlist agora está disponível no plano Base da Netflix que você assina!</p>",
-    });
-    */
+    if (process.env.RESEND_API_KEY) {
+      const { Resend } = await import("resend");
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      
+      const simulatedUserEmail = "teste@exemplo.com"; 
+      
+      // Dispara via Resend
+      /*
+      const { data, error } = await resend.emails.send({
+        from: "StreamHub <avisos@streamhub.com.br>",
+        to: [simulatedUserEmail],
+        subject: "🚨 O filme da sua Watchlist chegou na Netflix!",
+        html: "<p>O filme <strong>A Substância</strong> que estava na sua Watchlist agora está disponível no plano Base da Netflix que você assina!</p>",
+      });
+      */
+    }
 
     return NextResponse.json({ status: "Alerts processed successfully" });
   } catch (error) {
