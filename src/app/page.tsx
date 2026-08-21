@@ -875,7 +875,7 @@ export default async function HomePage() {
 
         {!trendingError ? (
           <AutoPosterCarousel direction="reverse">
-            {trendingSeries.map((item) => (
+            {trendingSeries.map((item, index) => (
               <article key={`tv-${item.id}`} className="poster-card">
                 <DeepLinkAnchor
                   appUrl={item.deepLinkUrl}
@@ -897,6 +897,12 @@ export default async function HomePage() {
                     <h4>{item.title}</h4>
                   </div>
                 </DeepLinkAnchor>
+                {/* Injection of Native Ad inside Carousel (Phase 3) */}
+                {index === 3 && (
+                  <div className="absolute inset-0 flex items-center justify-center p-2 opacity-90 transition-opacity hover:opacity-100 mix-blend-screen pointer-events-none">
+                     <GoogleAdUnit slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_NATIVE_1 ?? "native-ad-1"} className="w-full h-full max-h-[100px]" />
+                  </div>
+                )}
               </article>
             ))}
           </AutoPosterCarousel>

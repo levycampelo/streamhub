@@ -48,6 +48,10 @@ function encodeTerm(term: string): string {
 export function buildDeepLink(provider: DeepLinkProvider, contentId: string, title: string): DeepLinkResult {
   const query = encodeTerm(title);
 
+  // Implementação de Deep-Links V2 (Programa de Afiliados)
+  // Utilizando parâmetros de tracking de programas como Impact ou Rakuten
+  const impactTrackParams = "?irclickid=STREAMHUB_AFFILIATE_ID&irgwc=1";
+  
   switch (provider) {
     case "Netflix":
       return {
@@ -71,7 +75,8 @@ export function buildDeepLink(provider: DeepLinkProvider, contentId: string, tit
       return {
         provider,
         appUrl: `primevideo://detail/${contentId}`,
-        webUrl: `https://www.primevideo.com/search/ref=atv_nb_sr?phrase=${query}`,
+        // Injetando rastreamento de parceiros/afiliados.
+        webUrl: `https://www.primevideo.com/search/ref=atv_nb_sr${impactTrackParams}&phrase=${query}`,
       };
     default:
       return {
