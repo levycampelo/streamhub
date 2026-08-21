@@ -143,15 +143,22 @@ export function NavBar() {
     <header className="relative z-40 mx-auto mb-3 max-w-6xl px-3 pt-2.5 section-enter md:mb-5 md:px-4 md:pt-4">
       <nav className="card relative z-40 px-2.5 py-2 backdrop-blur-sm md:px-4 md:py-3">
         <div className="flex items-center justify-between gap-2.5 md:gap-3">
-          <Link href="/" className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3c8dff]">
-            {/* <p className="text-[10px] uppercase tracking-[0.22em] text-[#7f9bc4] md:text-xs md:tracking-[0.28em]">Share StreamHub</p> */}
-            <div className="mt-0.5 flex items-end gap-1.5">
+          <Link href="/" className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f5b544]">
+            <div className="flex items-center gap-2.5">
               <img
-                src="/logos/teste_logo.PNG"
-                alt="SharingHub"
-                className="h-10 w-auto md:h-11"
+                src="/logos/ursus-mark.svg"
+                alt="URSUS StreamHub"
+                className="h-9 w-9 md:h-10 md:w-10 drop-shadow-[0_4px_14px_rgba(245,181,68,0.35)]"
               />
-              <span className="pb-0.5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#7f9bc4] md:text-[0.72rem]">
+              <div className="flex flex-col leading-none">
+                <span className="text-[1.05rem] md:text-[1.2rem] font-black tracking-[0.22em] text-[#f6efe0]" style={{ fontFamily: "var(--font-heading), sans-serif" }}>
+                  URSUS
+                </span>
+                <span className="mt-0.5 text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.32em] text-[#f5b544]">
+                  StreamHub
+                </span>
+              </div>
+              <span className="ml-1 hidden sm:inline-flex items-center rounded-full border border-[#3a2a18] bg-[rgba(245,181,68,0.08)] px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.22em] text-[#f5b544]">
                 BETA
               </span>
             </div>

@@ -46,7 +46,7 @@ export default function AssinaturaPage() {
 
       <section className="mx-auto max-w-5xl px-4 pt-8">
         <div className="section-enter mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#7f9bc4]">Planos SharingHub</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#f5b544]">Planos URSUS StreamHub</p>
           <h1 className="mt-3 text-3xl font-semibold text-[#eef4ff] md:text-5xl">Escolha sua assinatura</h1>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-[var(--muted)] md:text-base">
             Pagamento via Mercado Pago com checkout rápido e seguro.

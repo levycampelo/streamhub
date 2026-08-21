@@ -705,7 +705,7 @@ export default async function HomePage() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Share StreamHub",
+    name: "URSUS StreamHub",
     url: siteUrl,
     inLanguage: "pt-BR",
     potentialAction: {
@@ -721,7 +721,7 @@ export default async function HomePage() {
     serviceType: "Comparador de streaming e descoberta de conteudo",
     provider: {
       "@type": "Organization",
-      name: "Share StreamHub",
+      name: "URSUS StreamHub",
       url: siteUrl,
     },
     areaServed: "BR",
@@ -762,16 +762,15 @@ export default async function HomePage() {
           </div>
 
           <div className="hero-content">
-            <p className="hero-kicker">Painel de entretenimento</p>
+            <p className="hero-kicker">🐻 URSUS · Painel de entretenimento</p>
             <h2 className="hero-title" style={{ fontFamily: "var(--font-heading)" }}>
               MENOS CAOS.
               <br />
-              MAIS STREAM.
+              <span className="hero-accent">MAIS STREAM.</span>
             </h2>
             <p className="hero-description">
-              Descubra onde assistir, controle gastos e receba sugestoes de economia no
-              <br />
-              mesmo lugar.
+              O guia inteligente do streaming: descubra onde assistir, controle gastos e receba sugestoes
+              de economia — tudo em um so lugar, com o olfato de urso da URSUS.
             </p>
           </div>
         </div>
@@ -780,7 +779,7 @@ export default async function HomePage() {
       {authenticatedUserId && (
         <section className="mx-auto mt-6 max-w-6xl px-4 section-enter stagger-1">
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
-            <h3 className="text-2xl font-semibold">Seu fluxo no StreamHub</h3>
+            <h3 className="text-2xl font-semibold">Seu fluxo no URSUS StreamHub</h3>
             <span className="rounded-full border border-[var(--line)] bg-[#0c1628] px-3 py-1 text-xs text-[var(--muted)]">
               Carrossel de experiencia
             </span>

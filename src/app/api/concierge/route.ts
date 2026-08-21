@@ -19,7 +19,7 @@ const conciergeSchema = z.object({
   messages: z.array(messageSchema).min(1).max(30),
 });
 
-const SYSTEM_PROMPT = `Você é o IA Concierge do Share StreamHub, um assistente especializado em streaming.
+const SYSTEM_PROMPT = `Você é o IA Concierge do URSUS StreamHub, um assistente especializado em streaming.
 Seu papel é ajudar o usuário a:
 - Decidir quais serviços de streaming assinar ou cancelar
 - Recomendar filmes e séries com base no perfil do usuário

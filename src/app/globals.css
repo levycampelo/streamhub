@@ -1,14 +1,19 @@
 @import "tailwindcss";
 
+/* URSUS StreamHub — Design tokens */
 :root {
-  --bg: #060b16;
+  --bg: #05080f;
   --surface: #0d1422;
   --surface-2: #111b2d;
-  --text: #eef4ff;
-  --muted: #9caac4;
-  --accent: #00c2ff;
-  --accent-2: #ff4d5a;
-  --line: #21314f;
+  --text: #f2f0ea;
+  --muted: #9aa6bd;
+  --accent: #f5b544;         /* URSUS honey / signature */
+  --accent-soft: #f7d38a;
+  --accent-deep: #c1801c;
+  --accent-2: #ff5f6d;       /* coral warmth */
+  --accent-3: #4dd9ff;       /* electric cyan */
+  --line: #1f2a44;
+  --line-warm: #3a2a18;
 }
 
 * {
@@ -20,29 +25,97 @@ body {
   min-height: 100vh;
   color: var(--text);
   background:
-    radial-gradient(1200px 500px at 10% -10%, rgba(0, 194, 255, 0.14), transparent 65%),
-    radial-gradient(1000px 400px at 95% -10%, rgba(255, 77, 90, 0.14), transparent 60%),
-    linear-gradient(180deg, #050914 0%, #060b16 35%, #050a14 100%);
+    radial-gradient(1200px 620px at 8% -12%, rgba(245, 181, 68, 0.14), transparent 62%),
+    radial-gradient(1000px 500px at 100% -10%, rgba(77, 217, 255, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 50% 110%, rgba(255, 95, 109, 0.10), transparent 65%),
+    linear-gradient(180deg, #05080f 0%, #060b16 40%, #04070d 100%);
   font-family: var(--font-ui), sans-serif;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.86 0 0 0 0 0.62 0 0 0 0.045 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
 .card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.008)),
+    linear-gradient(180deg, rgba(11, 18, 33, 0.72), rgba(6, 11, 22, 0.82));
   border: 1px solid var(--line);
   border-radius: 18px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* URSUS branded chip / mark helpers */
+.ursus-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  background: linear-gradient(90deg, rgba(245, 181, 68, 0.14), rgba(245, 181, 68, 0.04));
+  color: var(--accent-soft);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ursus-glow {
+  position: relative;
+}
+
+.ursus-glow::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(245, 181, 68, 0.55), rgba(77, 217, 255, 0.25) 55%, rgba(255, 95, 109, 0.45));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.85;
 }
 
 .hero-panel {
   position: relative;
-  min-height: 360px;
-  border: 1px solid #1f345a;
-  border-radius: 22px;
+  min-height: 400px;
+  border: 1px solid #2a2013;
+  border-radius: 26px;
   overflow: hidden;
   background:
-    linear-gradient(112deg, rgba(4, 10, 24, 0.98) 4%, rgba(7, 16, 35, 0.92) 42%, rgba(8, 18, 37, 0.78) 100%),
-    radial-gradient(1000px 520px at -20% 10%, rgba(36, 101, 211, 0.22), transparent 64%);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.36);
+    linear-gradient(112deg, rgba(4, 6, 12, 0.98) 4%, rgba(10, 8, 6, 0.9) 42%, rgba(24, 15, 6, 0.55) 100%),
+    radial-gradient(1100px 560px at -14% 12%, rgba(245, 181, 68, 0.28), transparent 60%),
+    radial-gradient(700px 400px at 108% 88%, rgba(77, 217, 255, 0.18), transparent 65%);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 218, 150, 0.08);
+}
+
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0 1px, transparent 1px 96px);
+  mask-image: radial-gradient(80% 90% at 30% 40%, #000 30%, transparent 75%);
+  pointer-events: none;
 }
 
 .hero-backdrop {
@@ -59,8 +132,9 @@ body {
   display: grid;
   grid-template-columns: repeat(6, minmax(120px, 1fr));
   gap: 8px;
-  transform: perspective(1200px) rotateY(-10deg) rotateX(1.8deg);
-  opacity: 0.78;
+  transform: perspective(1200px) rotateY(-12deg) rotateX(2deg);
+  opacity: 0.72;
+  filter: saturate(1.05);
 }
 
 .hero-poster-tile {
@@ -68,64 +142,73 @@ body {
   height: 132px;
   object-fit: cover;
   border-radius: 12px;
-  border: 1px solid rgba(84, 118, 176, 0.34);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(245, 181, 68, 0.18);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
 }
 
 .hero-darken {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(4, 10, 24, 0.98) 0%, rgba(5, 12, 29, 0.94) 40%, rgba(5, 12, 29, 0.65) 64%, rgba(5, 12, 29, 0.32) 100%),
-    radial-gradient(60% 120% at 12% 50%, rgba(0, 8, 27, 0.62), rgba(0, 0, 0, 0));
+    linear-gradient(90deg, rgba(4, 7, 14, 0.98) 0%, rgba(6, 9, 18, 0.94) 40%, rgba(6, 9, 18, 0.6) 64%, rgba(6, 9, 18, 0.28) 100%),
+    radial-gradient(60% 120% at 12% 50%, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 40%;
-  padding: 24px 28px;
+  max-width: 44%;
+  padding: 32px 32px 34px;
 }
 
 .hero-kicker {
   margin: 0;
   font-size: 12px;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #93b3e8;
+  color: var(--accent-soft);
 }
 
 .hero-title {
-  margin: 10px 0 0;
-  font-size: clamp(2.4rem, 6.1vw, 5rem);
-  line-height: 0.9;
-  letter-spacing: 0.015em;
-  color: #eaf2ff;
-  text-shadow: 0 14px 34px rgba(2, 10, 30, 0.6);
+  margin: 12px 0 0;
+  font-size: clamp(2.6rem, 6.4vw, 5.4rem);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  color: #f6efe0;
+  text-shadow: 0 16px 40px rgba(2, 5, 15, 0.7);
+}
+
+.hero-title .hero-accent {
+  background: linear-gradient(90deg, #f8e6bf 0%, #f5b544 45%, #ff8c5a 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
 }
 
 .hero-description {
-  margin: 18px 0 0;
-  max-width: 30ch;
-  font-size: 0.98rem;
-  line-height: 1.45;
-  color: #c4d4ee;
+  margin: 20px 0 0;
+  max-width: 34ch;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: #d3d9e6;
 }
 
 .btn {
-  background: linear-gradient(120deg, var(--accent-2), #ff7a59);
-  color: #fff;
+  background: linear-gradient(120deg, #f5b544 0%, #ff8c5a 55%, #ff5f6d 100%);
+  color: #1b1108;
   border: 0;
   border-radius: 12px;
   padding: 12px 18px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  transition: transform 180ms ease, filter 220ms ease;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  box-shadow: 0 10px 26px rgba(245, 132, 68, 0.24);
+  transition: transform 180ms ease, filter 220ms ease, box-shadow 220ms ease;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  filter: brightness(1.07);
+  filter: brightness(1.06);
+  box-shadow: 0 16px 34px rgba(245, 132, 68, 0.32);
 }
 
 .btn-ghost {
@@ -148,8 +231,8 @@ body {
 }
 
 .input:focus {
-  border-color: #3b8fff;
-  box-shadow: 0 0 0 3px rgba(59, 143, 255, 0.22);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(245, 181, 68, 0.22);
 }
 
 .poster-carousel {
@@ -182,6 +265,13 @@ body {
   border-radius: 14px;
   overflow: hidden;
   scroll-snap-align: start;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.poster-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(245, 181, 68, 0.16);
 }
 
 .poster-image {
@@ -203,9 +293,9 @@ body {
   margin-bottom: 6px;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #9bc9ff;
+  color: var(--accent-soft);
 }
 
 .poster-overlay h4 {

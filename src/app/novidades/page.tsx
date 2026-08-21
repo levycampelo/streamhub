@@ -125,7 +125,7 @@ export default async function NovidadesPage({ searchParams }: NovidadesPageProps
       <section className="mx-auto max-w-6xl px-4">
         <div className="card section-enter overflow-hidden p-0">
           <div className="border-b border-[var(--line)] bg-[radial-gradient(1200px_400px_at_0%_-20%,rgba(32,110,220,0.28),transparent_55%),radial-gradient(900px_340px_at_100%_0%,rgba(11,179,190,0.22),transparent_52%),linear-gradient(145deg,#0a1730_0%,#091225_75%)] px-6 py-7">
-            <p className="text-xs uppercase tracking-[0.22em] text-[#8ab7f7]">Radar StreamHub</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-[#f5b544]">Radar URSUS StreamHub</p>
             <h1 className="mt-2 text-3xl font-semibold md:text-4xl">Novidades dos Streamings</h1>
             <p className="mt-2 max-w-3xl text-sm text-[#b9cbe8] md:text-base">
               Painel diario para Brasil com entradas e saidas de catalogo em Netflix, Disney+, Prime Video e Max.

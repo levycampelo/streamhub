@@ -26,11 +26,11 @@ const uiFont = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Share StreamHub | Onde assistir filmes e series",
-    template: "%s | Share StreamHub",
+    default: "URSUS StreamHub | O guia inteligente do streaming",
+    template: "%s | URSUS StreamHub",
   },
   description:
-    "Compare streamings, descubra onde assistir filmes e series e organize watchlist com recomendacoes para economizar.",
+    "URSUS StreamHub e o guia inteligente do streaming: compare servicos, descubra onde assistir e organize watchlist com recomendacoes para economizar.",
   keywords: [
     "onde assistir",
     "streaming",
@@ -66,8 +66,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     url: "/",
-    siteName: "Share StreamHub",
-    title: "Share StreamHub | Onde assistir filmes e series",
+    siteName: "URSUS StreamHub",
+    title: "URSUS StreamHub | O guia inteligente do streaming",
     description:
       "Descubra onde assistir, compare streamings e organize sua watchlist em um unico hub.",
     images: [
@@ -75,13 +75,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Share StreamHub — Onde assistir filmes e series",
+        alt: "URSUS StreamHub — O guia inteligente do streaming",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Share StreamHub | Onde assistir filmes e series",
+    title: "URSUS StreamHub | O guia inteligente do streaming",
     description:
       "Compare servicos de streaming, encontre filmes e series e economize nas assinaturas.",
     images: ["/og-image.png"],
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#060e1c",
+  themeColor: "#05080f",
   width: "device-width",
   initialScale: 1,
 };
@@ -124,7 +124,10 @@ export default async function RootLayout({
               />
             </div>
             <footer className="mx-auto mt-8 w-full max-w-6xl border-t border-[var(--line)] px-4 py-6 text-center text-xs text-[var(--muted)]">
-              &copy; {currentYear} StreamHub - Todos os conteudos externos continuam a ser propriedade do seu legitimo proprietario.
+              <span className="inline-flex items-center gap-2">
+                <img src="/logos/ursus-mark.svg" alt="" className="h-4 w-auto opacity-90" />
+                &copy; {currentYear} URSUS StreamHub — Todos os conteudos externos continuam a ser propriedade do seu legitimo proprietario.
+              </span>
             </footer>
           </AuthSessionProvider>
           <SpeedInsights />

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     url: `${siteUrl}/busca`,
-    siteName: "Share StreamHub",
+    siteName: "URSUS StreamHub",
     title: "Busca universal — encontre onde assistir qualquer titulo",
     description:
       "Busque filmes, series e animes e descubra em qual streaming assistir, com IMDb rating e link direto para a plataforma.",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Share StreamHub — Busca universal de streaming",
+        alt: "URSUS StreamHub — Busca universal de streaming",
       },
     ],
   },
