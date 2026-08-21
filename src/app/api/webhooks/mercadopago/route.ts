@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { MercadoPagoConfig, Payment } from "mercadopago";
 // import database update fn here
 

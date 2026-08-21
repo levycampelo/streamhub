@@ -1,1 +1,63 @@
-浩潰瑲笠䴠瑥摡瑡⁡⁽牦浯∠敮瑸㬢椊灭牯⁴⁻畓灳湥敳素映潲⁭渢硥≴਻浩潰瑲笠渠瑯潆湵⁤⁽牦浯∠敮瑸港癡杩瑡潩≮਻⼊ 楓畭慬慣⁯‭畳獢楴畴⁡数潬猠略映瑥档爠慥⁬潤吠䑍⽂浏扤渠⁯畦畴潲愊祳据映湵瑣潩⁮敧佴牢䑡瑡⡡摩›瑳楲杮 ੻†⼯䤠獳⁯敤敶映穡牥映瑥档渠⁯䵔䉄漠⁵慮猠慵瀠潲牰慩愠楰氠捯污 爠瑥牵⁮੻††摩ਬ††楴汴㩥怠扏慲␠楻絤Ⱡ †搠獥牣灩楴湯›匢湩灯敳搠⁯楦浬⁥畯猠狩敩‮獅慴瀠柡湩⁡⃩敧慲慤搠湩浡捩浡湥整瀠牡⁡䕓⹏Ⱒ †椠慭敧牕㩬∠氯杯獯椯潣⵮ㄵ砲ㄵ⸲湰≧‬⼯䤠慭敧⁭整灭牯狡慩 素਻੽攊灸牯⁴獡湹⁣畦据楴湯朠湥牥瑡䵥瑥摡瑡⡡⁻慰慲獭素›⁻慰慲獭›⁻摩›瑳楲杮素素㨩倠潲業敳䴼瑥摡瑡㹡笠 挠湯瑳搠瑡⁡‽睡楡⁴敧佴牢䑡瑡⡡慰慲獭椮⥤਻† 椠⁦ℨ慤慴 敲畴湲笠琠瑩敬›丢濣攠据湯牴摡≯素਻ 爠瑥牵⁮੻††楴汴㩥怠湏敤愠獳獩楴⁲笤慤慴琮瑩敬恽ਬ††敤捳楲瑰潩㩮搠瑡⹡敤捳楲瑰潩Ɱ †漠数䝮慲桰›੻†††楴汴㩥怠湏敤愠獳獩楴⁲笤慤慴琮瑩敬恽ਬ†††敤捳楲瑰潩㩮搠瑡⹡敤捳楲瑰潩Ɱ ††椠慭敧㩳嬠慤慴椮慭敧牕嵬ਬ††ⱽ 素਻੽攊灸牯⁴敤慦汵⁴獡湹⁣畦据楴湯吠瑩汵偯条⡥⁻慰慲獭素›⁻慰慲獭›⁻摩›瑳楲杮素素 ੻†潣獮⁴慤慴㴠愠慷瑩朠瑥扏慲慄慴瀨牡浡⹳摩㬩ਊ†晩⠠搡瑡⥡渠瑯潆湵⡤㬩ਊ†敲畴湲⠠ †㰠楤⁶汣獡乳浡㵥挢湯慴湩牥洠⵸畡潴瀠⵸‴祰㠭㸢 ††㰠楤⁶汣獡乳浡㵥昢敬⁸汦硥挭汯洠㩤汦硥爭睯朠灡㠭㸢 †††㰠楤⁶汣獡乳浡㵥眢昭汵⁬摭眺ㄭ㌯㸢 ††††笠⨯攠汳湩⵴楤慳汢ⵥ敮瑸氭湩⁥湀硥⽴敮瑸港ⵯ浩ⵧ汥浥湥⁴⼪੽†††††椼杭ਠ††††††牳㵣摻瑡⹡浩条啥汲⁽ †††††愠瑬笽偠獯整⁲敤␠摻瑡⹡楴汴絥絠ਠ††††††汣獡乳浡㵥眢昭汵⁬潲湵敤ⵤ杬猠慨潤⵷杬漠橢捥⵴潣敶⁲杢渭略牴污㠭〰愠灳捥⵴㉛㌯≝ ††††⼠ਾ††††⼼楤㹶 †††ਠ††††搼癩挠慬獳慎敭∽⵷畦汬洠㩤⵷⼲∳ਾ†††††格‱汣獡乳浡㵥琢硥⵴破⁬潦瑮戭汯⁤潦瑮栭慥楤杮洠ⵢ∴笾慤慴琮瑩敬㱽栯㸱 ††††㰠⁰汣獡乳浡㵥琢硥⵴杬琠硥⵴敮瑵慲⵬〳‰扭㠭㸢摻瑡⹡敤捳楲瑰潩絮⼼㹰 ††††ਠ†††††搼癩挠慬獳慎敭∽杢渭略牴污㤭〰戠牯敤⁲潢摲牥渭略牴污㠭〰爠畯摮摥砭⁬⵰∶ਾ††††††格′汣獡乳浡㵥琢硥⵴砲⁬潦瑮猭浥扩汯⁤扭㐭㸢湏敤䄠獳獩楴㱲栯㸲 †††††笠⨯䄠畱⁩潶椠瑮来慲漠⁳敳獵䐠敥⁰楌歮⁳敲楡⁳⼪੽††††††搼癩挠慬獳慎敭∽整瑸渭略牴污㐭〰㸢 †††††††湉整牧牡挠浯漠⁳慤潤⁳潤吠䑍⽂畊瑳慗捴⁨慰慲攠瑳⁥䑉攠氠獩慴⁲獯戠瑯旵⁳敤猠牴慥業杮愠畱⹩⸮ †††††㰠搯癩ਾ†††††⼼楤㹶 †††㰠搯癩ਾ†††⼼楤㹶 †㰠搯癩ਾ†㬩紊਍
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+// Simulacao - substitua pelo seu fetch real do TMDB/Omdb no futuro
+async function getObraData(id: string) {
+  // Isso deve fazer fetch no TMDB ou na sua propria api local
+  return {
+    id,
+    title: `Obra ${id}`,
+    description: "Sinopse do filme ou série. Esta página é gerada dinamicamente para SEO.",
+    imageUrl: "/logos/icon-512x512.png", // Imagem temporária
+  };
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const data = await getObraData(params.id);
+  
+  if (!data) return { title: "Não encontrado" };
+
+  return {
+    title: `Onde assistir ${data.title}`,
+    description: data.description,
+    openGraph: {
+      title: `Onde assistir ${data.title}`,
+      description: data.description,
+      images: [data.imageUrl],
+    },
+  };
+}
+
+export default async function TituloPage({ params }: { params: { id: string } }) {
+  const data = await getObraData(params.id);
+
+  if (!data) notFound();
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="w-full md:w-1/3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src={data.imageUrl} 
+            alt={`Poster de ${data.title}`} 
+            className="w-full rounded-lg shadow-lg object-cover bg-neutral-800 aspect-[2/3]"
+          />
+        </div>
+        
+        <div className="w-full md:w-2/3">
+          <h1 className="text-4xl font-bold font-heading mb-4">{data.title}</h1>
+          <p className="text-lg text-neutral-300 mb-8">{data.description}</p>
+          
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+            <h2 className="text-2xl font-semibold mb-4">Onde Assistir</h2>
+            {/* Aqui você integrará os seus Deep Links reais */}
+            <div className="text-neutral-400">
+               Integrar com os dados do TMDB/JustWatch para este ID e listar os botões de streaming aqui...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
