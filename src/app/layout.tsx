@@ -47,6 +47,28 @@ export const metadata: Metadata = {
     "onde assistir online",
     "streaming brasil",
   ],
+  manifest: "/manifest.json",
+  openGraph: {
+    title: "Share StreamHub | Onde assistir filmes e series",
+    description: "Encontre onde assistir seus filmes e séries favoritos. Compare preços de streamings e gerencie sua watchlist.",
+    url: siteUrl,
+    siteName: "Share StreamHub",
+    images: [
+      {
+        url: `${siteUrl}/logos/icon-512x512.png`, // Sugestão: Crie uma imagem de banner de 1200x630
+        width: 512,
+        height: 512,
+        alt: "Share StreamHub Logo",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Share StreamHub",
+    description: "Descubra facilmente onde assistir qualquer filme ou série nos streamings disponíveis no Brasil.",
+    images: [`${siteUrl}/logos/icon-512x512.png`],
+  },
   alternates: {
     canonical: "/",
   },
